@@ -4,6 +4,9 @@ const PORT = 3000
 
 
 
+require('./db/db');
+
+
 
 
 
