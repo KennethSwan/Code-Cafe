@@ -24,6 +24,7 @@
 
 * Related model, Using the API, and cafe database 
 
+```
 User Schema 
 	Username: String
 	Password:  String 
@@ -70,7 +71,7 @@ Review Schema
 	timestamp:
 	recommend: Boolean
 	rating: Number
-  
+```
   ![Beginning]
   (https://imgur.com/3YbWQCv)
   
