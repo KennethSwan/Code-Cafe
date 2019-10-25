@@ -72,9 +72,20 @@ Review Schema
 	recommend: Boolean
 	rating: Number
 ```
-  ![Beginning]
-  (https://imgur.com/3YbWQCv)
+  ![firstPage]
+  (https://imgur.com/rGk9fJU)
   
-  ![End] 
-  (https://imgur.com/0V3Ipjd)
+  ![secondPage]
+  (https://imgur.com/Ufx08gR)
   
+  ![thirdPage]
+  (https://imgur.com/ItuUkpX)
+  
+  ![fourthPage]
+  (https://imgur.com/R9q2G0A)
+  
+  ![fiftfhPage]
+   (https://imgur.com/ywZWz2z)  
+  
+  ![sixthPage]
+  (https://imgur.com/SyWWvOH)
