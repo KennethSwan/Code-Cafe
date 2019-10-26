@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Code Café</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="/authors">Filter by zip code</a>
+          </li>
+          <li>
+            <a href="/articles">Filter by criteria</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+  <%= logOut %>
+
+  <h4>Login</h4>
+  <form action="/auth/login" method="POST">
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <h4>Registration</h4>
+  <form action="/auth/registration" method="POST">
+    <input type="text" name="username" placeholder="username"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <button type="submit">Register</button>
+  </form>
+
+
+  </body>
+</html>
