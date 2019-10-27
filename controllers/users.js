@@ -44,6 +44,15 @@ router.post('/registration', async(req, res) => {
 	res.redirect('/places/index.ejs')	
 })
 
+router.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+		if(err){
+			res.send(err);
+		} else {
+			res.redirect('/')
+		}
+	})
+})
 
 
 
