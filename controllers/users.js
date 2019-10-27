@@ -16,7 +16,7 @@ router.post('/login,' , async(req, res) => {
 				res.redirect('/places')
 			} else {
 				req.session.message = 'Username or password is incorrect';
-				res.redirect('/')
+				res.redirect('/places/index.ejs')
 			}
 		} else {
 			req.session.message = 'Username or password is incorrect'
@@ -27,7 +27,22 @@ router.post('/login,' , async(req, res) => {
 });
 
 
+router.post('/registration', async(req, res) => {
+	//hashing password
+	const password = req.body.password;
+	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
+	//creating object for db 
+	const userDbEntry = {};
+	userDbEntry.username = req.body.username;
+	userDbEntry.password = passwordHash
+
+	const createdUser = await User.create(userDbEntry);
+	console.log(createdUser);
+	req.session.username = createdUser.username;
+	req.session.logged = true; 
+	res.redirect('/places/index.ejs')	
+})
 
 
 
