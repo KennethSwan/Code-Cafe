@@ -17,11 +17,13 @@ app.use(session({
 app.use(methodOverride('_method')); 
 app.use(bodyParser.urlencoded({extended: false})); 
 
+const secretInfo = require('./secretInfo.js')
+
 const usersController = require('./controllers/users.js');
-app.use('/auth', usersController) 
+app.use('/users', usersController) 
 
 
-
+// home 
 app.get('/', (req, res) => {
 	console.log(req.session, 'home route');
 	res.render('index.ejs', {
