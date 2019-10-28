@@ -3,10 +3,6 @@ const router = express.Router();
 const User = require('../models/places');
 const bcrypt = require('bcrypt')
 
-router.get('', async(req, res, next) => {
-	try{
-
-	} else {
-		
-	}
+router.get('/', (req, res) => {
+	res.render('/places/edit.ejs')
 })
