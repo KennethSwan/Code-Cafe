@@ -16,7 +16,7 @@ router.post('/login,' , async(req, res) => {
 				res.redirect('/places')
 			} else {
 				req.session.message = 'Username or password is incorrect';
-				res.redirect('/places/index.ejs')
+				res.redirect('/')
 			}
 		} else {
 			req.session.message = 'Username or password is incorrect'
@@ -41,9 +41,10 @@ router.post('/registration', async(req, res) => {
 	console.log(createdUser);
 	req.session.username = createdUser.username;
 	req.session.logged = true; 
-	res.redirect('/places/index.ejs')	
+	res.redirect('/index.ejs')	
 })
 
+//creates a new cookie! 
 router.get('/logout', (req, res) => {
 	req.session.destroy((err) => {
 		if(err){
