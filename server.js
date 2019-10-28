@@ -11,7 +11,7 @@ require('./db/db');
 app.use(session({
 	secret: "this is a random secret string",
 	resave: false,
-	saveUnitialized: false
+	saveUninitialized: false
 }));
 
 app.use(methodOverride('_method')); 
@@ -21,6 +21,9 @@ const secretInfo = require('./secretInfo.js')
 
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController) 
+
+const placesController = require('./controllers/places.js'); 
+app.use('/places', placesController)
 
 
 // home 

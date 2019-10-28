@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 const placeSchema = new mongoose.Schema({
 	name: String, 
-	placeId: place_id from google places api
+	placeId: String,
 	outlets: Boolean,
-	numberOfOutlets: null, 
+	numberOfOutlets: String, 
 	wifi: Boolean, 
 	caffeinatedDrinks: Boolean,
  	alcohol: Boolean,
