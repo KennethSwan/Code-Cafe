@@ -12,7 +12,6 @@
     "express-session": "^1.17.0",
     "method-override": "^3.0.0",
     "mongoose": "^5.7.7",
-    "super": "^0.2.3"
   },
   "devDependencies": {},
   "scripts": {
