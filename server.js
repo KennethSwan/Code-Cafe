@@ -25,6 +25,9 @@ app.use('/users', usersController)
 const placesController = require('./controllers/places.js'); 
 app.use('/places', placesController)
 
+const reviewsController = require('./controllers/reviews.js'); 
+app.use('/reviews', reviewsController)
+
 
 // home 
 app.get('/', (req, res) => {
