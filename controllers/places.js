@@ -22,10 +22,6 @@ router.get('/', async(req, res, next) => {
 
 	// build url
 
-
-
-
-
 	// use it to hit the appropriate google places URL and get data
 
 	// see if you can get data to print
