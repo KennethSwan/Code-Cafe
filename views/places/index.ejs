@@ -5,13 +5,14 @@
 </head>
 <body>
 	<h2>Places Index</h2>
-
-	<% for(let i = 0; i < dataFromGoogle.length; i++) {%>
-	<li>
-		<a href="/places<%i%>">
-			<%=dataFromGoogle[i].name%></a>
-			<%=dataFromGoogle[i].formatted_address%>
-	<%}%>
+	<ul>		
+		<% for(let i = 0; i < dataFromGoogle.length; i++) {%>
+			<li>
+				<a href="/places/search/<%=dataFromGoogle[i].place_id%>"><%=dataFromGoogle[i].name%></a>
+				<%=dataFromGoogle[i].formatted_address%>
+			</li>
+		<%}%>
+	</ul>
 	<form action="/places/search" method="POST">
 		<input type="text" name="zipcode">
 		<input type="submit" name="Submit">
