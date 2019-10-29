@@ -6,10 +6,14 @@
 <body>
 	<h2>Places Index</h2>
 
+	<% for(let i = 0; i < dataFromGoogle.length; i++) {%>
+	<li>
+		<a href="/places<%i%>">
+			<%=dataFromGoogle[i].name%></a>
+	<%}%>
 	<form action="" method="POST">
 		<input type="text" name="zipcode">
 	</form>
-
 	<a href="/">Filter</a>
 </body>
 </html>

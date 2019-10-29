@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 
 //checking if user is registered, if not, redirecting them to register
-router.get('/login,' , async (req, res) => {
+router.post('/,' , async (req, res) => {
 	try{
 		const foundUser = await User.find({username: req.body.username});
 		if(foundUser){
@@ -28,7 +28,7 @@ router.get('/login,' , async (req, res) => {
 });
 
 
-router.get('/registration', async(req, res) => {
+router.post('/registration', async(req, res) => {
 	//hashing password
 	const password = req.body.password;
 	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
