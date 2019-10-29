@@ -4,12 +4,12 @@ const Place = require('../models/places')
 const superAgent = require('superagent')
 
 
-// router.get('/', (req, res) => {
-// 	res.render('/places/edits.ejs')
-// })
+router.get('/', (req, res) => {
+	res.render('./places/search.ejs')
+})
 
-router.get('/:zip', async(req, res, next) => {
-	const zip = req.params.zip
+router.post('/search', async(req, res, next) => {
+	const zip = req.body.zip
 	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
 	try{
 		const dataFromGoogle = await superAgent.get(url)
