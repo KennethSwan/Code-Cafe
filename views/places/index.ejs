@@ -10,6 +10,7 @@
 	<li>
 		<a href="/places<%i%>">
 			<%=dataFromGoogle[i].name%></a>
+			<%=dataFromGoogle[i].formatted_address%>
 	<%}%>
 	<form action="" method="POST">
 		<input type="text" name="zipcode">
