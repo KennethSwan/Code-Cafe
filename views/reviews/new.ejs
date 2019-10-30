@@ -14,7 +14,8 @@
 		<li>Rating: <%=dataFromGoogle.rating%></li>
 	</ul>
 
-	<form action="/reviews/new" method="POST">
+	<form action="/reviews/<%=dataFromGoogle.place_id%>" method="POST">
+
 		Number of Outlets
 		<input type="text" name="outlets">
 		<br>
@@ -24,8 +25,8 @@
 		<br>
 		Drinks 
 		<br> 
-		<input type="checkbox" name="caffeinated-drinks">Caffeinated Drinks <br> 
-		<input type="checkbox" name="alcoholic-drinks">Alcoholic Drinks <br> 
+		<input type="checkbox" name="caffeinatedDrinks">Caffeinated Drinks <br> 
+		<input type="checkbox" name="alcoholicDrinks">Alcoholic Drinks <br> 
 		<br>
 		Food Options 
 		<br> 
@@ -72,12 +73,11 @@
 		<input type="checkbox" name="intense">Intense
 		<br>
 
-	</form>
+
 
 	Additional Info 
 	<br> 
-	<form action="/reviews/<%=dataFromGoogle.place_id%>" method="POST">
-			<textarea rows="5" col="50">
+			<textarea rows="5" name="reviewText" col="50">
 				
 			</textarea>
 		<br> 

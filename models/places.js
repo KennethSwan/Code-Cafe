@@ -4,21 +4,26 @@ const mongoose = require('mongoose');
 const placeSchema = new mongoose.Schema({
 	name: String, 
 	placeId: String, // from Google
-	outlets: Boolean,
 	numberOfOutlets: Number, 
 	wifi: Boolean, 
 	caffeinatedDrinks: Boolean,
- 	alcohol: Boolean,
-	dinner: Boolean,
+ 	alcoholicDrink: Boolean,
+	breakfast: Boolean,
 	lunch: Boolean,
-	gf: Boolean,
-	vegan: Boolean, 
+	dinner: Boolean,
+	vegan: Boolean,
+	glutenFree: Boolean,
+	lactoseIntolerant: Boolean,
   	comfortableChairs: Boolean,
   	outdoorSeating: Boolean,
-	atmosphere: [],  
-	atmosphereDesc: String,
-	music: [],
-	musicDesc: String
+	busy: Boolean,
+	relaxed: Boolean,
+	stuffy: Boolean,
+	hip: Boolean,
+	soft: Boolean,
+	energizing: Boolean,
+	intense: Boolean,
+	atmosphereDescription: String,
 }); 
 
 
