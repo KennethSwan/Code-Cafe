@@ -36,7 +36,7 @@ app.use('/reviews', reviewsController)
 // home 
 app.get('/', (req, res) => {
 	console.log(req.session, 'home route');
-	res.render('index.ejs', {
+	res.render('users/index.ejs', {
 		logOut: req.session.logOutMsg
 	})
 })

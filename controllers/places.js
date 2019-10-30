@@ -63,6 +63,6 @@ router.get('/search/:place_id', async (req, res, next) => {
 
 })
 
-
+// this route will allow our user to be able to CUD their own review as well as Read those of others, given that others have left a review for this coffee shop. 
 
 module.exports = router;

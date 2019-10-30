@@ -10,7 +10,9 @@
       <nav>
         <ul>
           <li>
+            <form action="/places/search" method="POST">
             <a href="/">Filter by zip code</a>
+          </form>
           </li>
           <li>
             <a href="/">Filter by criteria</a>
@@ -22,14 +24,14 @@
   <%= logOut %>
 
   <h4>Login</h4>
-  <form action="/login" method="POST">
+  <form action="/places/search" method="POST">
     <input type="text" name="username" placeholder="username"><br>
     <input type="password" name="password" placeholder="password"><br>
     <button type="submit">Login</button>
   </form>
 
   <h4>Registration</h4>
-  <form action="/registration" method="POST">
+  <form action="/places/search" method="POST">
     <input type="text" name="username" placeholder="username"><br>
     <input type="password" name="password" placeholder="password"><br>
     <button type="submit">Register</button>

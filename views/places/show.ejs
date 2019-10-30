@@ -7,9 +7,11 @@
 
 	<h1>Landing page for</h1>
 	<ul>
-		<li><%=dataFromGoogle.name%> </li>
-		<li><%=dataFromGoogle.formatted_address%></li> 
-		<li><%=dataFromGoogle.opening_hours.weekday_text%></li>
+		<li>Name: <%=dataFromGoogle.name%> </li>
+		<li>Address: <%=dataFromGoogle.formatted_address%></li> 
+		<li>Open Now: <%=dataFromGoogle.opening_hours.open_now%></li>
+		<li>Hours of Operation: <%=dataFromGoogle.opening_hours.weekday_text%></li>
+		<li>Rating: <%=dataFromGoogle.rating%></li>
 	</ul>
 
 </body>

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 
 //checking if user is registered, if not, redirecting them to register
-router.post('/,' , async (req, res) => {
+router.post('/login,' , async (req, res) => {
 	try{
 		const foundUser = await User.find({username: req.body.username});
 		if(foundUser){
@@ -13,7 +13,7 @@ router.post('/,' , async (req, res) => {
 				req.session.message = '';
 				req.username = foundUser.username
 				req.session.logged = true;
-				res.redirect('/places')
+				res.redirect('/places/search.ejs')
 			} else {
 				req.session.message = 'Username or password is incorrect';
 				res.redirect('/')
@@ -42,7 +42,7 @@ router.post('/registration', async(req, res) => {
 	console.log(createdUser);
 	req.session.username = createdUser.username;
 	req.session.logged = true; 
-	res.redirect('/places')	
+	res.redirect('/places/search.ejs')	
 })
 
 // creates a new cookie! 
