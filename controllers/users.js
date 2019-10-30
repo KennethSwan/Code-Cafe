@@ -13,7 +13,7 @@ router.post('/login,' , async (req, res) => {
 				req.session.message = '';
 				req.username = foundUser.username
 				req.session.logged = true;
-				res.redirect('/places/search.ejs')
+				res.redirect('/places/search')
 			} else {
 				req.session.message = 'Username or password is incorrect';
 				res.redirect('/')
