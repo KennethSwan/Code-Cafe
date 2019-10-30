@@ -28,7 +28,10 @@ router.post('/login,' , async (req, res) => {
 });
 
 
-router.post('/registration', async(req, res) => {
+router.post('/registration', async (req, res) => {
+	// TODO: user should not be able to register with duplicate username
+	// TODO: add try/catch (& next)
+
 	//hashing password
 	const password = req.body.password;
 	const passwordHash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
@@ -38,11 +41,15 @@ router.post('/registration', async(req, res) => {
 	userDbEntry.username = req.body.username;
 	userDbEntry.password = passwordHash
 
+	// creating a user in the db - query
 	const createdUser = await User.create(userDbEntry);
+	console.log("\nhere is the user we created");
 	console.log(createdUser);
+
 	req.session.username = createdUser.username;
 	req.session.logged = true; 
-	res.redirect('/places/search.ejs')	
+
+	res.redirect('/places/search')	
 })
 
 // creates a new cookie! 

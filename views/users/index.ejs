@@ -24,17 +24,21 @@
   <%= logOut %>
 
   <h4>Login</h4>
-  <form action="/places/search" method="POST">
+  <form action="/users/login" method="POST">
     <input type="text" name="username" placeholder="username"><br>
     <input type="password" name="password" placeholder="password"><br>
     <button type="submit">Login</button>
   </form>
 
   <h4>Registration</h4>
-  <form action="/places/search" method="POST">
+
+  <form action="/users/registration" method="POST">
+
     <input type="text" name="username" placeholder="username"><br>
     <input type="password" name="password" placeholder="password"><br>
+
     <button type="submit">Register</button>
+
   </form>
 
 

@@ -5,14 +5,17 @@
 </head>
 <body>
 
-	<h1>Landing page for</h1>
+	<h1><%=dataFromGoogle.name%></h1>
 	<ul>
-		<li>Name: <%=dataFromGoogle.name%> </li>
+<!-- 		<li>Name: <%=dataFromGoogle.name%> </li> -->
 		<li>Address: <%=dataFromGoogle.formatted_address%></li> 
 		<li>Open Now: <%=dataFromGoogle.opening_hours.open_now%></li>
 		<li>Hours of Operation: <%=dataFromGoogle.opening_hours.weekday_text%></li>
 		<li>Rating: <%=dataFromGoogle.rating%></li>
 	</ul>
 
+	<h2>Would you like to leave a review of <%=dataFromGoogle.name%>?</h2>
+
+	<h3><button>Yes</button><button>No</button></h3>
 </body>
 </html>

@@ -4,7 +4,8 @@ const Place = require('../models/places')
 const superAgent = require('superagent')
 
 
-router.get('/', (req, res) => {
+// show the user a search page
+router.get('/search', (req, res) => {
 	res.render('places/search.ejs')
 })
 
@@ -22,20 +23,7 @@ router.post('/search', async(req, res, next) => {
 	}
 }); 
 
-// router.get('/search', (req, res) => {
-// // 	res.render('/places/show.ejs')
-// });
 
-// router.get('/show', async(req, res, next) => {
-// 	try {
-// 		const allCoffee = await dataFromGoogle.body.results
-// 		res.render('places/show.ejs', {
-// 			data: allCoffee
-// 		});
-// 	} catch(err) {
-// 		next(err)
-// 	}
-// });
 
 router.get('/search/:place_id', async (req, res, next) => {
 
@@ -56,7 +44,6 @@ router.get('/search/:place_id', async (req, res, next) => {
 		res.render('places/show.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
 		})
-		// res.render('places/show.ejs', { dataFromGoogle: cafe })
 	} catch(err){
 		next(err)
 	}
