@@ -73,7 +73,6 @@ router.post('/:place_id', async(req, res, next) => {
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
 	
-	// const glutenFree = 'gluten-free'
 
 	try {
 		// const dataFromGoogle = await superAgent.get(url)
@@ -195,10 +194,11 @@ router.post('/:place_id', async(req, res, next) => {
 		// 
 		 const addReview = Review.create(placeToAdd)
 
-
+		 console.log(req.body);
 		 console.log(addReview);
 		
 		// const userReviewDbEntry = {}; 
+
 
 
 

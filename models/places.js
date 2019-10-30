@@ -23,7 +23,7 @@ const placeSchema = new mongoose.Schema({
 	soft: Boolean,
 	energizing: Boolean,
 	intense: Boolean,
-	atmosphereDescription: String,
+	reviewText: {type: String, default:'No description added!'},
 }); 
 
 
