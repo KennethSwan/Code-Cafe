@@ -4,9 +4,9 @@
 	<title>Write Review for <%=dataFromGoogle.name%></title>
 </head>
 <body>
-	<h1>Write Review for Cafe Name</h1>
+	<h1>Write Review for <%=dataFromGoogle.name%></h1>
 
-	<form action="">
+	<form action="/reviews/new/:place_id" method="POST">
 		<input type="text" name="review">
 			<textarea rows="5" col="50">
 				

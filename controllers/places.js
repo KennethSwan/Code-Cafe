@@ -9,7 +9,7 @@ router.get('/search', (req, res) => {
 	res.render('places/search.ejs')
 })
 
-router.post('/search', async(req, res, next) => {
+router.post('/search', async (req, res, next) => {
 	const zip = req.body.zipcode
 	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
 	try{
@@ -52,6 +52,8 @@ router.get('/search/:place_id', async (req, res, next) => {
 	}
 
 })
+
+
 
 // this route will allow our user to be able to CUD their own review as well as Read those of others, given that others have left a review for this coffee shop.
 
