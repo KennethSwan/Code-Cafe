@@ -5,7 +5,7 @@ const placeSchema = new mongoose.Schema({
 	name: String, 
 	placeId: String, // from Google
 	outlets: Boolean,
-	numberOfOutlets: String, 
+	numberOfOutlets: Number, 
 	wifi: Boolean, 
 	caffeinatedDrinks: Boolean,
  	alcohol: Boolean,
@@ -15,9 +15,6 @@ const placeSchema = new mongoose.Schema({
 	vegan: Boolean, 
   	comfortableChairs: Boolean,
   	outdoorSeating: Boolean,
-	howBusy: String, 
-	smallBusinessOrCorporation: String,
-	lighting: String,
 	atmosphere: [],  
 	atmosphereDesc: String,
 	music: [],

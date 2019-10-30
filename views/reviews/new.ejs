@@ -14,9 +14,69 @@
 		<li>Rating: <%=dataFromGoogle.rating%></li>
 	</ul>
 
-	<form action="/reviews/new/:place_id" method="POST">
-		<input type="text" name="review">
+	<form action="/reviews/new" method="POST">
+		Number of Outlets
+		<input type="text" name="outlets">
 		<br>
+		<br>
+		Wifi 
+		<input type="checkbox" name="yes">yes <input type="checkbox" name="no">no
+		<br>
+		Drinks 
+		<br> 
+		<input type="checkbox" name="caffeinated-drinks">Caffeinated Drinks <br> 
+		<input type="checkbox" name="alcoholic-drinks">Alcoholic Drinks <br> 
+		<br>
+		Food Options 
+		<br> 
+		<input type="checkbox" name="breakfast">Breakfast 
+		<br>
+		<input type="checkbox" name="lunch">Lunch
+		<br>
+		<input type="checkbox" name="dinner">Dinner
+		<br>  
+		<br>
+		Food Restrictions
+		<br> 
+		<input type="checkbox" name="vegan">Vegan 
+		<br>
+		<input type="checkbox" name="gluten-free">Gluten Free 
+		<br>
+		<input type="checkbox" name="lactose-intolerant">Lactose Intolerant 
+		<br> 
+		<br>
+		Seating
+		<br> 
+		<input type="checkbox" name="comfortable-chairs">Comfortable Chairs  
+		<br>
+		<input type="checkbox" name="outdoor-seating">Outdoor Seating  
+		<br>
+		<br>
+		Atmosphere
+		<br> 
+		<input type="checkbox" name="busy">Busy 
+		<br>
+		<input type="checkbox" name="relaxed">Relaxed
+		<br>
+		<input type="checkbox" name="stuffy">Stuffy
+		<br>
+		<input type="checkbox" name="hip">Hip
+		<br>
+		<br>
+		Music
+		<br> 
+		<input type="checkbox" name="soft">Soft 
+		<br>
+		<input type="checkbox" name="energizing">Engergizing 
+		<br>
+		<input type="checkbox" name="intense">Intense
+		<br>
+
+	</form>
+
+	Additional Info 
+	<br> 
+	<form action="/reviews/new/:place_id" method="POST">
 			<textarea rows="5" col="50">
 				
 			</textarea>
