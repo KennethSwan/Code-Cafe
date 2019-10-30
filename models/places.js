@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const placeSchema = new mongoose.Schema({
 	name: String, 
-	placeId: String,
+	placeId: String, // from Google
 	outlets: Boolean,
 	numberOfOutlets: String, 
 	wifi: Boolean, 

@@ -38,6 +38,9 @@ router.get('/search/:place_id', async (req, res, next) => {
 	console.log(req.params.place_id);
 
 
+	// later: see if there is any info in our DB and if so, include it here
+	// don't forget to add more info below
+
 	try{
 		const dataFromGoogle = await superAgent.get(url)
 		console.log("\n here's the result from google ", );
