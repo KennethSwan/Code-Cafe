@@ -17,6 +17,7 @@ router.post('/search', async (req, res, next) => {
 		console.log("\n here's data from google in POST /search dataFromGoogle", dataFromGoogle.body.results);
 		res.render('places/index.ejs', {
 			dataFromGoogle: dataFromGoogle.body.results
+
 		})
 	} catch (err) {
 		next(err);
@@ -46,6 +47,7 @@ router.get('/search/:place_id', async (req, res, next) => {
 		console.log("\n here's the result from google ", );
 		res.render('places/show.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
+
 		})
 	} catch(err){
 		next(err)
@@ -74,9 +76,26 @@ router.get('/:place_id', async (req, res, next) => {
 
 	try{
 		const dataFromGoogle = await superAgent.get(url)
-		// console.log("\n here's the result from google");
+		console.log("\n here's the result from google");
+		console.log(dataFromGoogle.body.result);
+
+
+		// find your place in DB -- your data -- find One
+		const foundPlace = await Place.findOne({ placeId: req.params.place_id })
+
+		// find all (.find()) reviews where the place === the _id of the place you just found (your ids, not google )
+		const foundReviews = await Review.find({ place: foundPlace._id })
+
+		console.log("\nhere is foundPlace")
+		console.log(foundPlace);
+		console.log("\nhere is foundReviews")
+		console.log(foundReviews);
+
+		// render a diff place show template (create a new template for this)
 		res.render('places/show2.ejs', {
-			dataFromGoogle: dataFromGoogle.body.result
+			dataFromGoogle: dataFromGoogle.body.result,
+			foundPlace: foundPlace.body.result,
+			foundReviews: foundReview.body.result 
 		})
 
 	} catch(err){
@@ -84,11 +103,8 @@ router.get('/:place_id', async (req, res, next) => {
 	}
 })
 
-// same google as above
-// find your place in DB -- your data -- find One
-// find all (.find()) reviews where the place === the _id of the place you just found (your ids)
 
-// render a diff place show template (create a new template for this)
+
 
 
 

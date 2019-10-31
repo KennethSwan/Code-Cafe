@@ -4,6 +4,37 @@
 	<title></title>
 </head>
 <body>
-	Info for _____
+	<h1><%=dataFromGoogle.name%></h1>
+	<ul>
+		<li>Address: <%=dataFromGoogle.formatted_address%></li> 
+		<li>Open Now: <%=dataFromGoogle.opening_hours.open_now%></li>
+		<li>Hours of Operation: <%=dataFromGoogle.opening_hours.weekday_text%></li>
+		<li>Rating: <%=dataFromGoogle.rating%></li>
+	</ul>
+
+		<li>Number of Outlets: <%=foundPlace.numberOfOutlets%></li>
+		<li>Caffeinated Drinks: <%=foundPlace.caffeinateDrinks%></li>
+		<li>Alcoholic Drinks: <%=foundPlace.alcholicDrinks%></li>
+		<li>Breakfast: <%=foundPlace.breakfast%></li>
+		<li>Lunch: <%=foundPlace.lunch%></li>
+		<li>Dinner: <%=foundPlace.dinner%></li>
+		<li>Vegan: <%=foundPlace.vegan%></li>
+		<li>Gluten Free: <%=foundPlace.glutenFree%></li>
+		<li>Lactose Intolerant: <%=foundPlace.lactoseIntolerant%></li>
+		<li>Comfortable Chairs: <%=foundPlace.comfortableChairs%></li>
+		<li>Outdoor Seating: <%=foundPlace.outdoorSeating%></li>
+		<li>Busy: <%=foundPlace.busy%></li>
+		<li>Relaxed: <%=foundPlace.relaxed%></li>
+		<li>Stuffy: <%=foundPlace.stuffy%></li>
+		<li>Hip: <%=foundPlace.hip%></li>
+		<li>Soft: <%=foundPlace.soft%></li>
+		<li>Energizing: <%=foundPlace.energizing%></li>
+		<li>Intense: <%=foundPlace.intense%></li>
+
+		<br>
+
+		<li>User Review: <%=foundReview.text%></li>
+
+
 </body>
 </html>

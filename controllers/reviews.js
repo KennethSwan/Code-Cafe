@@ -213,7 +213,14 @@ router.post('/:place_id', async(req, res, next) => {
 		const addedReview = await Review.create(reviewToAdd)
 
 
-		res.send('review (probably) added -- this page under construction')
+
+
+		res.render('places/show2.ejs', {
+			dataFromGoogle: dataFromGoogle.body.result, 
+			foundPlace: addedPlace,
+			foundReview: addedReview
+
+		})
 
 		// res.render('reviews/show.ejs', {
 		// 	dataFromGoogle: dataFromGoogle.body.result,
