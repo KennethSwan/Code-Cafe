@@ -77,7 +77,11 @@ router.post('/:place_id', async(req, res, next) => {
 
 
 	try {
+
+
 		const dataFromGoogle = await superAgent.get(url)
+
+
 		
 		// this is an object we will add to the database
 		const placeToAdd = {}
@@ -195,7 +199,14 @@ router.post('/:place_id', async(req, res, next) => {
 		console.log(placeToAdd);
 
 
+
+		// add placeId from google 
+
+		placeToAdd.placeId = req.params.place_id
+
 		const addedPlace = await Place.create(placeToAdd)
+
+
 
 		
 		const reviewToAdd = {
@@ -204,24 +215,18 @@ router.post('/:place_id', async(req, res, next) => {
 			text: req.body.reviewText	
 		}
 		console.log(reviewToAdd);
-		// const userReviewDbEntry = {
 
-		// }; 
 
 		const addedReview = await Review.create(reviewToAdd)
 
 
-		// const userReview = await Review.create()
-		// console.log(userReview);
+		res.send('review (probably) added -- this page under construction')
 
-
-		// console.log("\nwe hit the route.  here is theplace id ", req.params.place_id);
-		// console.log("\n here's req.body ", req.body);
-		res.render('reviews/show.ejs', {
-			dataFromGoogle: dataFromGoogle.body.result,
-			// addedPlace:
-			// reviewToAdd: 
-		})
+		// res.render('reviews/show.ejs', {
+		// 	dataFromGoogle: dataFromGoogle.body.result,
+		// 	// addedPlace:
+		// 	// reviewToAdd: 
+		// })
 
 	} catch(err){
 		next(err)

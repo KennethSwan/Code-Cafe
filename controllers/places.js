@@ -55,6 +55,30 @@ router.get('/search/:place_id', async (req, res, next) => {
 
 
 
+
+
+
+// places show route
+// get google info for place with this id
+// GET /places/:place_id
+
+// same google as above
+// find your place in DB -- your data -- find One
+// find all (.find()) reviews where the place === the _id of the place you just found (your ids)
+
+// render a diff place show template (create a new template for this)
+
+
+
+
+
+
+
+
+
+
+
+
 // this route will allow our user to be able to CUD their own review as well as Read those of others, given that others have left a review for this coffee shop.
 
 // to do this, we may need to "change" some data from the google places api
