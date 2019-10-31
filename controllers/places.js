@@ -11,7 +11,7 @@ router.get('/search', (req, res) => {
 
 router.post('/search', async (req, res, next) => {
 	const zip = req.body.zipcode
-	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
+	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
 	try{
 		const dataFromGoogle = await superAgent.get(url)
 		console.log("\n here's data from google in POST /search dataFromGoogle", dataFromGoogle.body.results);
@@ -31,7 +31,7 @@ router.get('/search/:place_id', async (req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id --  build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 	// log data make sure it's good
 	console.log("\n here's the url in place details search");
 	console.log(url);

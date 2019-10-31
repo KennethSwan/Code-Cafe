@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Review = require("../models/reviews")
-// console.log(Review);
+const Place = require("../models/places")
 const superAgent = require('superagent')
 
 
@@ -71,11 +71,15 @@ router.post('/:place_id', async(req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 	
+	console.log(req.body);
+
 
 	try {
-		// const dataFromGoogle = await superAgent.get(url)
+		const dataFromGoogle = await superAgent.get(url)
+		
+		// this is an object we will add to the database
 		const placeToAdd = {}
 
 		if(req.body.wifi === 'on') {
@@ -191,15 +195,20 @@ router.post('/:place_id', async(req, res, next) => {
 		console.log(placeToAdd);
 
 
-		// 
-		 const addReview = Review.create(placeToAdd)
+		const addedPlace = await Place.create(placeToAdd)
 
-		 console.log(req.body);
-		 console.log(addReview);
 		
-		// const userReviewDbEntry = {}; 
+		const reviewToAdd = {
+			user: req.session.user._id,
+			place: addedPlace._id,
+			text: req.body.reviewText	
+		}
+		console.log(reviewToAdd);
+		// const userReviewDbEntry = {
 
+		// }; 
 
+		const addedReview = await Review.create(reviewToAdd)
 
 
 		// const userReview = await Review.create()
@@ -208,12 +217,45 @@ router.post('/:place_id', async(req, res, next) => {
 
 		// console.log("\nwe hit the route.  here is theplace id ", req.params.place_id);
 		// console.log("\n here's req.body ", req.body);
-		res.render('reviews/show.ejs')
+		res.render('reviews/show.ejs', {
+			dataFromGoogle: dataFromGoogle.body.result,
+			// addedPlace:
+			// reviewToAdd: 
+		})
 
 	} catch(err){
 		next(err)
 	}
 	
+})
+
+router.put('/show/:place_id', async(req, res, next) => {
+
+	// get data from google Place Details -- info about one place
+	const placeId = req.params.place_id
+
+	// use req.params.place_id -- build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+	const placeToAdd = {}
+
+	try{
+
+		const dataFromGoogle = await superAgent.get(url)
+
+		Review.findById(
+			req.params.place_id,
+			(err, updatedReview) => {
+				if(err){
+					res.send(err);
+				} else {
+					res.render('/reviews/show.ejs', { 
+						dataFromGoogle: dataFromGoogle.body.result 
+				})
+		}
+	})
+	} catch (err) {
+		next(err)
+	}
 })
 
 

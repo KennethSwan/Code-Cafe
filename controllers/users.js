@@ -11,7 +11,7 @@ router.post('/login,' , async (req, res) => {
 		if(foundUser){
 			if(bcrypt.compareSync(req.body.password, foundUser.password)){
 				req.session.message = '';
-				req.username = foundUser.username
+				req.session.user = foundUser
 				req.session.logged = true;
 				res.redirect('/places/search')
 			} else {
@@ -46,7 +46,7 @@ router.post('/registration', async (req, res) => {
 	console.log("\nhere is the user we created");
 	console.log(createdUser);
 
-	req.session.username = createdUser.username;
+	req.session.user = createdUser;
 	req.session.logged = true; 
 
 	res.redirect('/places/search')	
