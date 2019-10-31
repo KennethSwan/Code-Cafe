@@ -34,7 +34,7 @@ router.get('/new/:place_id', async (req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key=AIzaSyBHFRhxiNyFGr1xAOPOwOdtTY9PI3HEdDE";
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
 	// log data to make sure it's good 
 	console.log("\n here's the url in place details search");
