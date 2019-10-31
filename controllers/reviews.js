@@ -77,11 +77,7 @@ router.post('/:place_id', async(req, res, next) => {
 
 
 	try {
-
-
 		const dataFromGoogle = await superAgent.get(url)
-
-
 		
 		// this is an object we will add to the database
 		const placeToAdd = {}
@@ -199,14 +195,11 @@ router.post('/:place_id', async(req, res, next) => {
 		console.log(placeToAdd);
 
 
-
 		// add placeId from google 
 
 		placeToAdd.placeId = req.params.place_id
 
 		const addedPlace = await Place.create(placeToAdd)
-
-
 
 		
 		const reviewToAdd = {

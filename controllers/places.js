@@ -61,6 +61,28 @@ router.get('/search/:place_id', async (req, res, next) => {
 // places show route
 // get google info for place with this id
 // GET /places/:place_id
+router.get('/:place_id', async (req, res, next) => {
+	const placeId = req.params.place_id
+
+	// use req.params.place_id -- build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+
+	// log data to make sure it's good 
+	console.log("\n here's the url in place details search");
+	console.log(url);
+	console.log(req.params.place_id);
+
+	try{
+		const dataFromGoogle = await superAgent.get(url)
+		// console.log("\n here's the result from google");
+		res.render('places/show2.ejs', {
+			dataFromGoogle: dataFromGoogle.body.result
+		})
+
+	} catch(err){
+		next(err)
+	}
+})
 
 // same google as above
 // find your place in DB -- your data -- find One
