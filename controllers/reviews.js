@@ -208,7 +208,7 @@ router.post('/:place_id', async(req, res, next) => {
 
 		// console.log("\nwe hit the route.  here is theplace id ", req.params.place_id);
 		// console.log("\n here's req.body ", req.body);
-		res.send('hit POST /reviews/new/:place_id -- check terminal')
+		res.render('reviews/show.ejs')
 
 	} catch(err){
 		next(err)
