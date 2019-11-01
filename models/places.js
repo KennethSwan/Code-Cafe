@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const placeSchema = new mongoose.Schema({
 	name: String, 
 	placeId: String, // from Google
-	numberOfOutlets: Number, 
+	outlets: String, 
 	wifi: Boolean, 
 	caffeinatedDrinks: Boolean,
  	alcoholicDrink: Boolean,
@@ -22,8 +22,7 @@ const placeSchema = new mongoose.Schema({
 	hip: Boolean,
 	soft: Boolean,
 	energizing: Boolean,
-	intense: Boolean,
-	reviewText: {type: String, default:'No description added!'},
+	intense: Boolean
 }); 
 
 

@@ -11,7 +11,7 @@ router.post('/login' , async (req, res) => {
 		if(foundUser){
 			if(bcrypt.compareSync(req.body.password, foundUser.password)){
 				req.session.message = '';
-				req.username = foundUser.username
+				req.session.user = foundUser
 				req.session.logged = true;
 				res.redirect('/places/search')
 			} else {
@@ -27,10 +27,8 @@ router.post('/login' , async (req, res) => {
 	}	
 });
 
-
+// this allows user to register and gives access to the site
 router.post('/registration', async (req, res) => {
-	// TODO: user should not be able to register with duplicate username
-	// TODO: add try/catch (& next)
 
 	//hashing password
 	const password = req.body.password;
@@ -46,7 +44,7 @@ router.post('/registration', async (req, res) => {
 	console.log("\nhere is the user we created");
 	console.log(createdUser);
 
-	req.session.username = createdUser.username;
+	req.session.user = createdUser;
 	req.session.logged = true; 
 
 	res.redirect('/places/search')	

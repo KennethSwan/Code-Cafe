@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Review = require("../models/reviews")
-// console.log(Review);
+const Place = require("../models/places")
 const superAgent = require('superagent')
-
-
-
 
 
 
@@ -20,30 +17,17 @@ router.get('/new', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
+// this grabs information from the Google API 
 router.get('/new/:place_id', async (req, res, next) => {
 	// get data from google Place Details -- info about one place
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+ process.env.API_KEY;
 
-	// log data to make sure it's good 
-	console.log("\n here's the url in place details search");
-	console.log(url);
-	console.log(req.params.place_id);
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
 	try{
 		const dataFromGoogle = await superAgent.get(url)
-		// console.log("\n here's the result from google");
 		res.render('reviews/new.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
 		})
@@ -55,17 +39,8 @@ router.get('/new/:place_id', async (req, res, next) => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
+// this is our create route 
+// if the user has checked criteria, it will show up on show2.ejs
 router.post('/:place_id', async(req, res, next) => {
 	// get data from google Place Details -- info about one place
 	const placeId = req.params.place_id
@@ -73,9 +48,10 @@ router.post('/:place_id', async(req, res, next) => {
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key"+ process.env.API_KEY;
 	
-
 	try {
-		// const dataFromGoogle = await superAgent.get(url)
+		const dataFromGoogle = await superAgent.get(url)
+		
+		// this is an object we will add to the database
 		const placeToAdd = {}
 
 		if(req.body.wifi === 'on') {
@@ -188,27 +164,28 @@ router.post('/:place_id', async(req, res, next) => {
 			placeToAdd.intense = false;
 		}
 
-		console.log(placeToAdd);
+		placeToAdd.placeId = req.params.place_id
 
+		const addedPlace = await Place.create(placeToAdd)
 
-		// 
-		 const addReview = Review.create(placeToAdd)
-
-		 console.log(req.body);
-		 console.log(addReview);
 		
-		// const userReviewDbEntry = {}; 
+		const reviewToAdd = {
+			user: req.session.user._id,
+			place: addedPlace._id,
+			text: req.body.reviewText	
+		}
+		console.log(reviewToAdd);
 
 
+		const addedReview = await Review.create(reviewToAdd)
 
 
-		// const userReview = await Review.create()
-		// console.log(userReview);
+		res.render('places/show2.ejs', {
+			dataFromGoogle: dataFromGoogle.body.result, 
+			foundPlace: addedPlace,
+			foundReview: addedReview
 
-
-		// console.log("\nwe hit the route.  here is theplace id ", req.params.place_id);
-		// console.log("\n here's req.body ", req.body);
-		res.render('reviews/show.ejs')
+		})
 
 	} catch(err){
 		next(err)
@@ -216,23 +193,122 @@ router.post('/:place_id', async(req, res, next) => {
 	
 })
 
+// this is our edit route 
+// this edit route will have old information from the database (from the update route)
+// to hit this route when button is clicked. it is going to edit an old review with the 
+// older checkboxes visible to change 
+router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 
-// create a new collection to be added to mongodb for the reviews 
+	// get data from google Place Details -- info about one place
+	const placeId = req.params.place_id
 
-// use .create to add information to db 
+	// use req.params.place_id -- build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+	const placeToAdd = {}
+	placeToAdd.placeId = req.params.place_id
+	const addedPlace = await Place.create(placeToAdd)
+	const foundPlace = await Place.findOne({ placeId: req.params.place_id })
+	const foundReviews = await Review.find({ place: foundPlace._id })
+	const foundReviewId = await Review.find(foundReviews.id)
 
-// use place_id to add the place to our db
+	try{
 
-// add the review to our db
+		const dataFromGoogle = await superAgent.get(url)
 
-// render another page that shows the information/ review that we created as well as the information brought in with the google API. 
+		Review.findById(
+			req.params._id,
+			(err, addedReview) => {
+				if(err){
+					res.send(err);
+				} else {
+					res.render('places/edit2.ejs', { 
+						dataFromGoogle: dataFromGoogle.body.result, 
+						foundPlace: addedPlace,
+						foundReview: addedReview,
+				})
+		}
+	})
+	} catch (err) {
+		next(err)
+	}
+	
+})
 
-// user should be able to see information that they've added as well as what was there before. 
 
 
+// this is our update route 
+// this is going to update the data base
+router.put('/:place_id', async(req, res, next) => {
+
+	// get data from google Place Details -- info about one place
+	const placeId = req.params.place_id
+
+	// use req.params.place_id -- build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+	const placeToAdd = {}
+	placeToAdd.placeId = req.params.place_id
+	const addedPlace = await Place.create(placeToAdd)
+	const addedReview = await Review.create(reviewToAdd)
 
 
+	try{
 
+		const dataFromGoogle = await superAgent.get(url)
+
+		Review.findByIdAndUpdate(req.params._id,
+		 foundPlace.wifi,
+		 foundPlace.caffeinatedDrinks,
+		 foundPlace.alcoholicDrinks,
+		 foundPlace.breakfast,
+		 foundPlace.lunch,
+		 foundPlace.dinner,
+		 foundPlace.vegan,
+		 foundPlace.glutenFree,
+		 foundPlace.lactoseIntolerant,
+		 foundPlace.comfortableChairs,
+		 foundPlace.outdoorSeating,
+		 foundPlace.busy,
+		 foundPlace.relaxed,
+		 foundPlace.stuffy,
+		 foundPlace.hip,
+		 foundPlace.soft,
+		 foundPlace.energizing,
+		 foundPlace.intense,
+			(err, updatedReview) => {
+				if(err){
+					res.send(err);
+				} else {
+					res.render('show2.ejs', { 
+						dataFromGoogle: dataFromGoogle.body.result, 
+						foundPlace: addedPlace,
+						foundReview: addedReview
+
+				})
+		}
+	})
+	} catch (err) {
+		next(err)
+	}
+})
+
+// this is our delete route 
+// it will delete reviews that are already saved in the database 
+router.delete('/show/:place_id/:review_id', async (req, res, next) => {
+	
+    try {
+    	const placeId = req.params.place_id
+		const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+		const placeToAdd = {}
+		placeToAdd.placeId = req.params.place_id;
+		const deletedReview = await Review.findByIdAndDelete(req.params.review_id);
+		console.log("this is the deleted review")
+		console.log(deletedReview);
+        
+		res.redirect('/places/' + placeId);
+    } catch (err){
+        next(err);
+    }
+})
 
 
 

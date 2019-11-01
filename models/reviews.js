@@ -10,11 +10,10 @@ const reviewSchema = new mongoose.Schema({
 		ref: 'Place'
 	},
 	text: String, 
-	// timestamp: 
-	recommend: Boolean, 
-	rating: Number
 })
 
 const Review = mongoose.model('Review', reviewSchema)
 
 module.exports = Review
+
+
