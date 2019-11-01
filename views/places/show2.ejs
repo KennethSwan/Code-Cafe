@@ -11,10 +11,10 @@
 		<li>Hours of Operation: <%=dataFromGoogle.opening_hours.weekday_text%></li>
 		<li>Rating: <%=dataFromGoogle.rating%></li>
 	</ul>
-
-		<li>Number of Outlets: <%=foundPlace.numberOfOutlets%></li>
-		<li>Caffeinated Drinks: <%=foundPlace.caffeinateDrinks%></li>
-		<li>Alcoholic Drinks: <%=foundPlace.alcholicDrinks%></li>
+		<li>Wifi: <%=foundPlace.wifi%></li>
+		<li>Number of Outlets: <%=foundPlace.outlets%></li>
+		<li>Caffeinated Drinks: <%=foundPlace.caffeinatedDrinks%></li>
+		<li>Alcoholic Drinks: <%=foundPlace.alcoholicDrinks%></li>
 		<li>Breakfast: <%=foundPlace.breakfast%></li>
 		<li>Lunch: <%=foundPlace.lunch%></li>
 		<li>Dinner: <%=foundPlace.dinner%></li>
@@ -35,6 +35,7 @@
 
 		<li>User Review: <%=foundReview.text%></li>
 
+<a href="/reviews/new/<%=dataFromGoogle.place_id%>"> Edit review of <%=dataFromGoogle.name%> </a>
 
 </body>
 </html>

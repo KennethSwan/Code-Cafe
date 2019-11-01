@@ -242,19 +242,41 @@ router.put('/show/:place_id', async(req, res, next) => {
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 	const placeToAdd = {}
+	placeToAdd.placeId = req.params.place_id
+	const addedPlace = await Place.create(placeToAdd)
+	const addedReview = await Review.create(reviewToAdd)
 
 	try{
 
 		const dataFromGoogle = await superAgent.get(url)
 
-		Review.findById(
-			req.params.place_id,
+		Review.findByIdAndUpdate(req.params._id,
+		 foundPlace.wifi,
+		 foundPlace.caffeinatedDrinks,
+		 foundPlace.alcoholicDrinks,
+		 foundPlace.breakfast,
+		 foundPlace.lunch,
+		 foundPlace.dinner,
+		 foundPlace.vegan,
+		 foundPlace.glutenFree,
+		 foundPlace.lactoseIntolerant,
+		 foundPlace.comfortableChairs,
+		 foundPlace.outdoorSeating,
+		 foundPlace.busy,
+		 foundPlace.relaxed,
+		 foundPlace.stuffy,
+		 foundPlace.hip,
+		 foundPlace.soft,
+		 foundPlace.energizing,
+		 foundPlace.intense,
 			(err, updatedReview) => {
 				if(err){
 					res.send(err);
 				} else {
-					res.render('/reviews/show.ejs', { 
-						dataFromGoogle: dataFromGoogle.body.result 
+					res.render('show2.ejs', { 
+						dataFromGoogle: dataFromGoogle.body.result, 
+						foundPlace: addedPlace,
+						foundReview: addedReview
 				})
 		}
 	})

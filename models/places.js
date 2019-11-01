@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const placeSchema = new mongoose.Schema({
 	name: String, 
 	placeId: String, // from Google
-	numberOfOutlets: Number, 
+	outlets: String, 
 	wifi: Boolean, 
 	caffeinatedDrinks: Boolean,
  	alcoholicDrink: Boolean,
