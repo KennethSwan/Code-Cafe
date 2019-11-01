@@ -50,11 +50,6 @@ router.get('/search/:place_id', async (req, res, next) => {
 })
 
 
-
-
-
-
-
 // gets info from google API for place with this id
 // shows results from google of specific place with the criteria we have set on show.ejs
 router.get('/:place_id', async (req, res, next) => {
