@@ -234,7 +234,67 @@ router.post('/:place_id', async(req, res, next) => {
 	
 })
 
-router.put('/show/:place_id', async(req, res, next) => {
+router.get('/:place_id/edit/:review_id', async (req, res, next) => {
+
+	// get data from google Place Details -- info about one place
+	const placeId = req.params.place_id
+
+	// use req.params.place_id -- build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+	const placeToAdd = {}
+	placeToAdd.placeId = req.params.place_id
+	const addedPlace = await Place.create(placeToAdd)
+	//find review.findbyId 
+	// that review we are going to save to varabile 
+	// pass that variable into the edit2.ejs page 
+
+	try{
+
+		const dataFromGoogle = await superAgent.get(url)
+
+		Review.findById(req.params._id,
+		 foundPlace.wifi,
+		 foundPlace.caffeinatedDrinks,
+		 foundPlace.alcoholicDrinks,
+		 foundPlace.breakfast,
+		 foundPlace.lunch,
+		 foundPlace.dinner,
+		 foundPlace.vegan,
+		 foundPlace.glutenFree,
+		 foundPlace.lactoseIntolerant,
+		 foundPlace.comfortableChairs,
+		 foundPlace.outdoorSeating,
+		 foundPlace.busy,
+		 foundPlace.relaxed,
+		 foundPlace.stuffy,
+		 foundPlace.hip,
+		 foundPlace.soft,
+		 foundPlace.energizing,
+		 foundPlace.intense,
+			(err, editedReview) => {
+				if(err){
+					res.send(err);
+				} else {
+					res.render('edit2.ejs', { 
+						dataFromGoogle: dataFromGoogle.body.result, 
+						foundPlace: addedPlace,
+						foundReview: addedReview
+
+				})
+		}
+	})
+	} catch (err) {
+		next(err)
+	}
+	
+})
+
+
+
+// this is our update route 
+// this is going to update the data base
+// make an edit route that will have old information from the database to hit this route when button is clicked. it is going to get edit something 
+router.put('/:place_id', async(req, res, next) => {
 
 	// get data from google Place Details -- info about one place
 	const placeId = req.params.place_id
@@ -283,6 +343,10 @@ router.put('/show/:place_id', async(req, res, next) => {
 	} catch (err) {
 		next(err)
 	}
+})
+
+router.delete('/show/:place_id', async (req, res, next) => {
+	Review.findByIdAndDelete(req.params._id, )
 })
 
 
