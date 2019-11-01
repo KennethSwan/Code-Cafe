@@ -35,7 +35,14 @@
 
 		<li>User Review: <%=foundReview.text%></li>
 
-<a href="/reviews/<%=dataFromGoogle.place_id%>/edit/<%=foundReview.id%>"> Edit review of <%=dataFromGoogle.name%> </a>
+		<br>
+		<br>
+
+	<a href="/reviews/<%=dataFromGoogle.place_id%>/edit/<%=foundReview.id%>"> Edit review of <%=dataFromGoogle.name%> </a>
+
+	<br>
+
+	<a href="/places/index<%=foundReview.id%>"> Delete review of <%=dataFromGoogle.name%> </a>
 
 </body>
 </html>
