@@ -10,9 +10,6 @@ const superAgent = require('superagent')
 
 
 
-
-
-
 router.get('/new', (req, res) => {
 	res.render('reviews/new.ejs')
 })
@@ -20,15 +17,7 @@ router.get('/new', (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
+// this grabs information from the Google API 
 router.get('/new/:place_id', async (req, res, next) => {
 	// get data from google Place Details -- info about one place
 	const placeId = req.params.place_id
@@ -36,14 +25,8 @@ router.get('/new/:place_id', async (req, res, next) => {
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
-	// log data to make sure it's good 
-	console.log("\n here's the url in place details search");
-	console.log(url);
-	console.log(req.params.place_id);
-
 	try{
 		const dataFromGoogle = await superAgent.get(url)
-		// console.log("\n here's the result from google");
 		res.render('reviews/new.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
 		})
@@ -55,26 +38,14 @@ router.get('/new/:place_id', async (req, res, next) => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
+// this is our create route 
+// if the user has checked criteria, it will show up on show2.ejs
 router.post('/:place_id', async(req, res, next) => {
 	// get data from google Place Details -- info about one place
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-	
-	console.log(req.body);
-
 
 	try {
 		const dataFromGoogle = await superAgent.get(url)
@@ -192,11 +163,6 @@ router.post('/:place_id', async(req, res, next) => {
 			placeToAdd.intense = false;
 		}
 
-		console.log(placeToAdd);
-
-
-		// add placeId from google 
-
 		placeToAdd.placeId = req.params.place_id
 
 		const addedPlace = await Place.create(placeToAdd)
@@ -213,8 +179,6 @@ router.post('/:place_id', async(req, res, next) => {
 		const addedReview = await Review.create(reviewToAdd)
 
 
-
-
 		res.render('places/show2.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result, 
 			foundPlace: addedPlace,
@@ -222,18 +186,16 @@ router.post('/:place_id', async(req, res, next) => {
 
 		})
 
-		// res.render('reviews/show.ejs', {
-		// 	dataFromGoogle: dataFromGoogle.body.result,
-		// 	// addedPlace:
-		// 	// reviewToAdd: 
-		// })
-
 	} catch(err){
 		next(err)
 	}
 	
 })
 
+// this is our edit route 
+// this edit route will have old information from the database (from the update route)
+// to hit this route when button is clicked. it is going to edit an old review with the 
+// older checkboxes visible to change 
 router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 
 	// get data from google Place Details -- info about one place
@@ -255,34 +217,17 @@ router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 
 		const dataFromGoogle = await superAgent.get(url)
 
-		Review.findById(req.params._id,
-		 foundPlace.wifi,
-		 foundPlace.caffeinatedDrinks,
-		 foundPlace.alcoholicDrinks,
-		 foundPlace.breakfast,
-		 foundPlace.lunch,
-		 foundPlace.dinner,
-		 foundPlace.vegan,
-		 foundPlace.glutenFree,
-		 foundPlace.lactoseIntolerant,
-		 foundPlace.comfortableChairs,
-		 foundPlace.outdoorSeating,
-		 foundPlace.busy,
-		 foundPlace.relaxed,
-		 foundPlace.stuffy,
-		 foundPlace.hip,
-		 foundPlace.soft,
-		 foundPlace.energizing,
-		 foundPlace.intense,
-			(err, editedReview) => {
+		Review.findById(
+			req.params._id,
+			(err, addedReview) => {
 				if(err){
 					res.send(err);
 				} else {
-					res.render('edit2.ejs', { 
+					res.render('places/edit2.ejs', { 
 						dataFromGoogle: dataFromGoogle.body.result, 
 						foundPlace: addedPlace,
 						foundReview: addedReview,
-						editedReview: foundReviewId
+						// editedReview: foundReviewId
 
 				})
 		}
@@ -297,7 +242,6 @@ router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 
 // this is our update route 
 // this is going to update the data base
-// make an edit route that will have old information from the database to hit this route when button is clicked. it is going to get edit something 
 router.put('/:place_id', async(req, res, next) => {
 
 	// get data from google Place Details -- info about one place
@@ -351,8 +295,9 @@ router.put('/:place_id', async(req, res, next) => {
 	}
 })
 
+// this is our delete route 
+// it will delete reviews that are already saved in the database 
 router.delete('/show/:place_id', async (req, res, next) => {
-	// Review.findByIdAndDelete(req.params._id, )
 	const placeId = req.params.place_id
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 	const placeToAdd = {}
@@ -370,24 +315,6 @@ router.delete('/show/:place_id', async (req, res, next) => {
 	        next(err);
 	    }
 })
-
-
-// create a new collection to be added to mongodb for the reviews 
-
-// use .create to add information to db 
-
-// use place_id to add the place to our db
-
-// add the review to our db
-
-// render another page that shows the information/ review that we created as well as the information brought in with the google API. 
-
-// user should be able to see information that they've added as well as what was there before. 
-
-
-
-
-
 
 
 

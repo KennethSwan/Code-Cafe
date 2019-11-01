@@ -41,8 +41,8 @@
 	<a href="/reviews/<%=dataFromGoogle.place_id%>/edit/<%=foundReview.id%>"> Edit review of <%=dataFromGoogle.name%> </a>
 
 	<br>
-
-	<a href="/places/index<%=foundReview.id%>"> Delete review of <%=dataFromGoogle.name%> </a>
-
+	<form method="POST" action="/places/index/<%=dataFromGoogle.place_id%>?_method=DELETE" >
+		<button>Delete Review</button>
+	</form>
 </body>
 </html>

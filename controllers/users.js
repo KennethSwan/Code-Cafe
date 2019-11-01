@@ -27,10 +27,8 @@ router.post('/login,' , async (req, res) => {
 	}	
 });
 
-
+// this allows user to register and gives access to the site
 router.post('/registration', async (req, res) => {
-	// TODO: user should not be able to register with duplicate username
-	// TODO: add try/catch (& next)
 
 	//hashing password
 	const password = req.body.password;

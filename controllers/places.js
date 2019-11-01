@@ -10,6 +10,7 @@ router.get('/search', (req, res) => {
 	res.render('places/search.ejs')
 })
 
+// user is able to searh cafe by zipcode 
 router.post('/search', async (req, res, next) => {
 	const zip = req.body.zipcode
 	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
@@ -26,7 +27,7 @@ router.post('/search', async (req, res, next) => {
 }); 
 
 
-
+// directs user to index with search results 
 router.get('/search/:place_id', async (req, res, next) => {
 
 	// get data from google Place Details -- info about one place
@@ -35,17 +36,9 @@ router.get('/search/:place_id', async (req, res, next) => {
 	// use req.params.place_id --  build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 	// log data make sure it's good
-	console.log("\n here's the url in place details search");
-	console.log(url);
-	console.log(req.params.place_id);
-
-
-	// later: see if there is any info in our DB and if so, include it here
-	// don't forget to add more info below
 
 	try{
-		const dataFromGoogle = await superAgent.get(url)
-		console.log("\n here's the result from google ", );
+		const dataFromGoogle = await superAgent.get(url);
 		res.render('places/show.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
 
@@ -61,19 +54,14 @@ router.get('/search/:place_id', async (req, res, next) => {
 
 
 
-// places show route
-// get google info for place with this id
-// GET /places/:place_id
+
+// gets info from google API for place with this id
+// shows results from google of specific place with the criteria we have set on show.ejs
 router.get('/:place_id', async (req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-
-	// log data to make sure it's good 
-	console.log("\n here's the url in place details search");
-	console.log(url);
-	console.log(req.params.place_id);
 
 	try{
 		const dataFromGoogle = await superAgent.get(url)
@@ -87,12 +75,6 @@ router.get('/:place_id', async (req, res, next) => {
 		// find all (.find()) reviews where the place === the _id of the place you just found (your ids, not google )
 		const foundReviews = await Review.find({ place: foundPlace._id })
 
-		console.log("\nhere is foundPlace")
-		console.log(foundPlace);
-		console.log("\nhere is foundReviews")
-		console.log(foundReviews);
-
-		// render a diff place show template (create a new template for this)
 		res.render('places/show2.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result,
 			foundPlace: foundPlace.body.result,
@@ -104,23 +86,4 @@ router.get('/:place_id', async (req, res, next) => {
 	}
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// this route will allow our user to be able to CUD their own review as well as Read those of others, given that others have left a review for this coffee shop.
-
-// to do this, we may need to "change" some data from the google places api
-
-// we may be able to do this all with one route, which would be ideal. 
 module.exports = router;
