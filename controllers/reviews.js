@@ -209,9 +209,6 @@ router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 	const foundPlace = await Place.findOne({ placeId: req.params.place_id })
 	const foundReviews = await Review.find({ place: foundPlace._id })
 	const foundReviewId = await Review.find(foundReviews.id)
-	//find review.findbyId 
-	// that review we are going to save to varabile 
-	// pass that variable into the edit2.ejs page 
 
 	try{
 
@@ -227,8 +224,6 @@ router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 						dataFromGoogle: dataFromGoogle.body.result, 
 						foundPlace: addedPlace,
 						foundReview: addedReview,
-						// editedReview: foundReviewId
-
 				})
 		}
 	})
@@ -297,23 +292,21 @@ router.put('/:place_id', async(req, res, next) => {
 
 // this is our delete route 
 // it will delete reviews that are already saved in the database 
-router.delete('/show/:place_id', async (req, res, next) => {
-	const placeId = req.params.place_id
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-	const placeToAdd = {}
-	placeToAdd.placeId = req.params.place_id
-	const addedPlace = await Place.create(placeToAdd)
-	const addedReview = await Review.create(reviewToAdd)
-	    try {
-	        const deletedReview = await Review.findByIdAndRemove(placeId)
-	        res.render('places/index', {
-	        	dataFromGoogle: dataFromGoogle.body.result, 
-				foundPlace: addedPlace,
-				foundReview: addedReview
-	        });
-	    } catch (err){
-	        next(err);
-	    }
+router.delete('/show/:place_id/:review_id', async (req, res, next) => {
+	
+    try {
+    	const placeId = req.params.place_id
+		const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+		const placeToAdd = {}
+		placeToAdd.placeId = req.params.place_id;
+		const deletedReview = await Review.findByIdAndDelete(req.params.review_id);
+		console.log("this is the deleted review")
+		console.log(deletedReview);
+        
+		res.redirect('/places/' + placeId);
+    } catch (err){
+        next(err);
+    }
 })
 
 
