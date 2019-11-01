@@ -1,7 +1,5 @@
-// require dotenv at the top of this file -- as soon as 
 require('dotenv').config()
 // console.log(process.env);
-
 const express = require('express') 
 const app = express()
 const PORT = process.env.PORT
@@ -20,7 +18,6 @@ app.use(session({
 
 app.use(methodOverride('_method')); 
 app.use(bodyParser.urlencoded({extended: false})); 
-
 
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController) 

@@ -23,6 +23,7 @@ router.get('/new/:place_id', async (req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
+
 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
 	try{
@@ -45,8 +46,8 @@ router.post('/:place_id', async(req, res, next) => {
 	const placeId = req.params.place_id
 
 	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key"+ process.env.API_KEY;
+	
 	try {
 		const dataFromGoogle = await superAgent.get(url)
 		

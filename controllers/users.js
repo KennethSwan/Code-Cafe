@@ -5,9 +5,9 @@ const bcrypt = require('bcryptjs')
 
 
 //checking if user is registered, if not, redirecting them to register
-router.post('/login,' , async (req, res) => {
+router.post('/login' , async (req, res) => {
 	try{
-		const foundUser = await User.find({username: req.body.username});
+		const foundUser = await User.findOne({username: req.body.username});
 		if(foundUser){
 			if(bcrypt.compareSync(req.body.password, foundUser.password)){
 				req.session.message = '';
