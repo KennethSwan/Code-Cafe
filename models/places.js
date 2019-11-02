@@ -22,7 +22,14 @@ const placeSchema = new mongoose.Schema({
 	hip: Boolean,
 	soft: Boolean,
 	energizing: Boolean,
-	intense: Boolean
+	intense: Boolean,
+	user: {
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'User'
+	},
+	additionalInfo: String
+	// name -- from google
+	// address -- from google 
 }); 
 
 
