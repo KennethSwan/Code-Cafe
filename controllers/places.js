@@ -27,7 +27,7 @@ router.post('/search', async (req, res, next) => {
 }); 
 
 
-// directs user to index with search results 
+// shows user information from google API  
 router.get('/search/:place_id', async (req, res, next) => {
 
 	// get data from google Place Details -- info about one place
