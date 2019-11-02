@@ -27,58 +27,58 @@ router.post('/search', async (req, res, next) => {
 }); 
 
 
-// shows user information from google API  
-router.get('/search/:place_id', async (req, res, next) => {
+// // shows user information from google API  
+// router.get('/search/:place_id', async (req, res, next) => {
 
-	// get data from google Place Details -- info about one place
-	const placeId = req.params.place_id
+// 	// get data from google Place Details -- info about one place
+// 	const placeId = req.params.place_id
 
-	// use req.params.place_id --  build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-	// log data make sure it's good
+// 	// use req.params.place_id --  build a URL
+// 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+// 	// log data make sure it's good
 
-	try{
-		const dataFromGoogle = await superAgent.get(url);
-		res.render('places/show.ejs', {
-			dataFromGoogle: dataFromGoogle.body.result
+// 	try{
+// 		const dataFromGoogle = await superAgent.get(url);
+// 		res.render('places/show.ejs', {
+// 			dataFromGoogle: dataFromGoogle.body.result
 
-		})
-	} catch(err){
-		next(err)
-	}
+// 		})
+// 	} catch(err){
+// 		next(err)
+// 	}
 
-})
-
-
-// gets info from google API for place with this id
-// shows results from google of specific place with the criteria we have set on show.ejs
-router.get('/:place_id', async (req, res, next) => {
-	const placeId = req.params.place_id
-
-	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-
-	try{
-		const dataFromGoogle = await superAgent.get(url)
-		console.log("\n here's the result from google");
-		console.log(dataFromGoogle.body.result);
+// })
 
 
-		// find your place in DB -- your data -- find One
-		const foundPlace = await Place.findOne({ placeId: req.params.place_id })
+// // gets info from google API for place with this id
+// // shows results from google of specific place with the criteria we have set on show.ejs
+// router.get('/:place_id', async (req, res, next) => {
+// 	const placeId = req.params.place_id
 
-		// find all (.find()) reviews where the place === the _id of the place you just found (your ids, not google )
-		const foundReviews = await Review.find({ place: foundPlace._id })
+// 	// use req.params.place_id -- build a URL
+// 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
-		res.render('places/show2.ejs', {
-			dataFromGoogle: dataFromGoogle.body.result,
-			foundPlace: foundPlace.body.result,
-			foundReviews: foundReview.body.result 
-		})
+// 	try{
+// 		const dataFromGoogle = await superAgent.get(url)
+// 		console.log("\n here's the result from google");
+// 		console.log(dataFromGoogle.body.result);
 
-	} catch(err){
-		next(err)
-	}
-})
+
+// 		// find your place in DB -- your data -- find One
+// 		const foundPlace = await Place.findOne({ placeId: req.params.place_id })
+
+// 		// find all (.find()) reviews where the place === the _id of the place you just found (your ids, not google )
+// 		const foundReviews = await Review.find({ place: foundPlace._id })
+
+// 		res.render('places/show2.ejs', {
+// 			dataFromGoogle: dataFromGoogle.body.result,
+// 			foundPlace: foundPlace.body.result,
+// 			foundReviews: foundReview.body.result 
+// 		})
+
+// 	} catch(err){
+// 		next(err)
+// 	}
+// })
 
 module.exports = router;
