@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Review = require("../models/reviews")
-const Place = require("../models/places")
+const Review = require("../models/review")
 const superAgent = require('superagent')
 
 

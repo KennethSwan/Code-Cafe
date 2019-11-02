@@ -1,7 +1,10 @@
 const mongoose = require('mongoose'); 
 
-
-const placeSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
+	user: {
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'User'
+	},
 	name: String, 
 	placeId: String, // from Google
 	outlets: String, 
@@ -23,9 +26,12 @@ const placeSchema = new mongoose.Schema({
 	soft: Boolean,
 	energizing: Boolean,
 	intense: Boolean
-}); 
+	
+	text: String, 
+})
+
+const Review = mongoose.model('Review', reviewSchema)
+
+module.exports = Review
 
 
-
-const Place = mongoose.model('Place', placeSchema)
-module.exports = Place
