@@ -4,8 +4,12 @@ const Place = require('../models/places')
 const Review = require('../models/reviews')
 const superAgent = require('superagent')
 
-// send user to a new page to add a review
 router.get('/new', (req, res) => {
+	res.render('new.ejs')
+})
+
+// send user to a new page to add a review
+router.get('/', (req, res) => {
 	Place.find({}, (err, allPlaces) => {
 	res.render('new.ejs', {
 		places: allPlaces
@@ -13,26 +17,34 @@ router.get('/new', (req, res) => {
 })
 })
 // allow user to create a review
-router.post('/new', async (req, res, next) => {
-	try{
-		const createdPlace = await Place.create(req.body)
-		res.redirect('show.ejs')
-	} catch (err){
-		next(err)
-	}
+router.post('/', (req, res) => {
+	Place.create(req.body, (err, createdPlace) => {
+		if(err){
+			console.log(err);
+		} else {
+			res.render('/show')
+		}
+	})
 })
 // show the user a page of all reviews so far
 router.get('/:id', (req, res) => {
-	Place.findById(req.params.id, (err, foundPlaces) => {
+	Place.findById(req.params.id, (err, foundPlace) => {
 		if(err){
 			res.send(err);
 		} else {
 	res.send('show.ejs', {
-		places: foundPlaces
+		places: foundPlace
 
 	})
 }
 })
+})
+router.get('/:id/edit', (req, res) => {
+	Place.findById(req.params.id, (err, foundPlace) => {
+		res.render('edit.ejs', {
+			place: foundPlace
+		})
+	})
 })
 // router.get('/show3', (req, res) => {
 // 	res.render('show3.ejs')
