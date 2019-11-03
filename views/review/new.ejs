@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h2>List of Place By Zipcode </h2>
+	<ul>		
+		<% for(let i = 0; i < dataFromGoogle.length; i++) {%>
+			<li>
+				<a href="/places/search/<%=dataFromGoogle[i].place_id%>"> <%=dataFromGoogle[i].name%>
+				</a>
+				<%=dataFromGoogle[i].formatted_address%>
+			</li>
+		<%}%>
+	</ul>
+	<form action="/places/search" method="POST">
+		<input type="text" name="zipcode">
+		<input type="submit" name="Submit">
+	</form>
+
+</body>
+</html>

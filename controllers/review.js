@@ -5,10 +5,10 @@ const superAgent = require('superagent')
 
 // show the user a search page
 router.get('/search', (req, res) => {
-	res.render('places/search.ejs')
+	res.render('review/search.ejs')
 })
 
-// user is able to searh cafe by zipcode 
+// this shows list of cafes and addresses after user types in zipcode 
 router.post('/search', async (req, res, next) => {
 	const zip = req.body.zipcode
 	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
@@ -217,7 +217,7 @@ router.post('/:place_id', async(req, res, next) => {
 		const addedReview = await Review.create(reviewToAdd)
 
 
-		res.render('places/show2.ejs', {
+		res.render('review/show2.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result, 
 			foundPlace: addedPlace,
 			foundReview: addedReview
@@ -258,7 +258,7 @@ router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 				if(err){
 					res.send(err);
 				} else {
-					res.render('places/edit2.ejs', { 
+					res.render('reivew/edit2.ejs', { 
 						dataFromGoogle: dataFromGoogle.body.result, 
 						foundPlace: addedPlace,
 						foundReview: addedReview,
@@ -341,7 +341,7 @@ router.delete('/show/:place_id/:review_id', async (req, res, next) => {
 		console.log("this is the deleted review")
 		console.log(deletedReview);
         
-		res.redirect('/places/' + placeId);
+		res.redirect('/review/' + placeId);
     } catch (err){
         next(err);
     }
