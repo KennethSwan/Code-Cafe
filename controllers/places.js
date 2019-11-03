@@ -6,25 +6,29 @@ const superAgent = require('superagent')
 
 
 // show the user a search page
-router.get('/search', (req, res) => {
-	res.render('places/search.ejs')
+router.get('/show', (req, res) => {
+	res.render('places/show3.ejs')
 })
 
-// user is able to searh cafe by zipcode 
-router.post('/search', async (req, res, next) => {
-	const zip = req.body.zipcode
-	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
-	try{
-		const dataFromGoogle = await superAgent.get(url)
-		console.log("\n here's data from google in POST /search dataFromGoogle", dataFromGoogle.body.results);
-		res.render('places/index.ejs', {
-			dataFromGoogle: dataFromGoogle.body.results
+router.get('/new', (req, res) => {
+	res.render('places/new.ejs')
+})
 
-		})
-	} catch (err) {
-		next(err);
-	}
-}); 
+// // user is able to searh cafe by zipcode 
+// router.post('/search', async (req, res, next) => {
+// 	const zip = req.body.zipcode
+// 	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
+// 	try{
+// 		const dataFromGoogle = await superAgent.get(url)
+// 		console.log("\n here's data from google in POST /search dataFromGoogle", dataFromGoogle.body.results);
+// 		res.render('places/index.ejs', {
+// 			dataFromGoogle: dataFromGoogle.body.results
+
+// 		})
+// 	} catch (err) {
+// 		next(err);
+// 	}
+// }); 
 
 
 // // shows user information from google API  
