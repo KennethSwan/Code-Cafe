@@ -3,19 +3,57 @@ const router = express.Router();
 const Review = require("../models/review")
 const superAgent = require('superagent')
 
+// show the user a search page
+router.get('/search', (req, res) => {
+	res.render('places/search.ejs')
+})
 
+// user is able to searh cafe by zipcode 
+router.post('/search', async (req, res, next) => {
+	const zip = req.body.zipcode
+	const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=coffeeshops+in+"+zip+"&key="+process.env.API_KEY;
+	try{
+		const dataFromGoogle = await superAgent.get(url)
+		console.log("\n here's data from google in POST /search dataFromGoogle", dataFromGoogle.body.results);
+		res.render('reivew/new.ejs', {
+			dataFromGoogle: dataFromGoogle.body.results
 
+		})
+	} catch (err) {
+		next(err);
+	}
+}); 
 
+// shows basic information about cafe supplied by Google API 
+// after user types in zip code  
+router.get('/search/:place_id', async (req, res, next) => {
+
+	// get data from google Place Details -- info about one place
+	const placeId = req.params.place_id
+
+	// use req.params.place_id --  build a URL
+	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+	// log data make sure it's good
+
+	try{
+		const dataFromGoogle = await superAgent.get(url);
+		res.render('review/show.ejs', {
+			dataFromGoogle: dataFromGoogle.body.result
+
+		})
+	} catch(err){
+		next(err)
+	}
+
+})
 
 
 // direct to page to create review 
 router.get('/new', (req, res) => {
-	res.render('reviews/new.ejs')
+	res.render('review/new2.ejs')
 })
 
-
-
-
+// shows user basic information about place 
 // this grabs information from the Google API 
 router.get('/new/:place_id', async (req, res, next) => {
 	// get data from google Place Details -- info about one place
@@ -27,7 +65,7 @@ router.get('/new/:place_id', async (req, res, next) => {
 
 	try{
 		const dataFromGoogle = await superAgent.get(url)
-		res.render('reviews/new.ejs', {
+		res.render('review/new2.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result
 		})
 
