@@ -8,7 +8,7 @@ const superAgent = require('superagent')
 
 
 
-
+// direct to page to create review 
 router.get('/new', (req, res) => {
 	res.render('reviews/new.ejs')
 })

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose'); 
 
 const reviewSchema = new mongoose.Schema({
-	user: {
+	user: [{
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'User'
-	},
+	}],
 	name: String, 
 	placeId: String, // from Google
 	outlets: String, 
@@ -26,7 +26,7 @@ const reviewSchema = new mongoose.Schema({
 	soft: Boolean,
 	energizing: Boolean,
 	intense: Boolean
-	
+
 	text: String, 
 })
 
