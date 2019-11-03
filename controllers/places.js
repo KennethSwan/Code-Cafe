@@ -4,15 +4,39 @@ const Place = require('../models/places')
 const Review = require('../models/reviews')
 const superAgent = require('superagent')
 
-
-// show the user a search page
-router.get('/show', (req, res) => {
-	res.render('places/show3.ejs')
-})
-
+// send user to a new page to add a review
 router.get('/new', (req, res) => {
-	res.render('places/new.ejs')
+	Place.find({}, (err, allPlaces) => {
+	res.render('new.ejs', {
+		places: allPlaces
+	})
 })
+})
+// allow user to create a review
+router.post('/new', async (req, res, next) => {
+	try{
+		const createdPlace = await Place.create(req.body)
+		res.redirect('show.ejs')
+	} catch (err){
+		next(err)
+	}
+})
+// show the user a page of all reviews so far
+router.get('/:id', (req, res) => {
+	Place.findById(req.params.id, (err, foundPlaces) => {
+		if(err){
+			res.send(err);
+		} else {
+	res.send('show.ejs', {
+		places: foundPlaces
+
+	})
+}
+})
+})
+// router.get('/show3', (req, res) => {
+// 	res.render('show3.ejs')
+// })
 
 // // user is able to searh cafe by zipcode 
 // router.post('/search', async (req, res, next) => {

@@ -17,26 +17,26 @@ router.get('/new', (req, res) => {
 
 
 
-// this grabs information from the Google API 
-router.get('/new/:place_id', async (req, res, next) => {
-	// get data from google Place Details -- info about one place
-	const placeId = req.params.place_id
+// // this grabs information from the Google API 
+// router.get('/new/:place_id', async (req, res, next) => {
+// 	// get data from google Place Details -- info about one place
+// 	const placeId = req.params.place_id
 
-	// use req.params.place_id -- build a URL
+// 	// use req.params.place_id -- build a URL
 
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+// 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
 
-	try{
-		const dataFromGoogle = await superAgent.get(url)
-		res.render('reviews/new.ejs', {
-			dataFromGoogle: dataFromGoogle.body.result
-		})
+// 	try{
+// 		const dataFromGoogle = await superAgent.get(url)
+// 		res.render('reviews/new.ejs', {
+// 			dataFromGoogle: dataFromGoogle.body.result
+// 		})
 
-	} catch(err){
-		next(err)
-	}
+// 	} catch(err){
+// 		next(err)
+// 	}
 
-})
+// })
 
 
 // this is our create route 

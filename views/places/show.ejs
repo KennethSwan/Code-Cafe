@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Reviewed Cafés</title>
 </head>
 <body>
-
-	<h1><%=dataFromGoogle.name%></h1>
+	<h1>Reviewed Cafés</h1>
 	<ul>
-		<li>Address: <%=dataFromGoogle.formatted_address%></li> 
-		<li>Open Now: <%=dataFromGoogle.opening_hours.open_now%></li>
-		<li>Hours of Operation: <%=dataFromGoogle.opening_hours.weekday_text%></li>
-		<li>Rating: <%=dataFromGoogle.rating%></li>
+		<% for(let i =0; i < places.length; i++){%>
+		<li>
+			<a href="/places/show2<%=places[i]._id%>"><%=places[i].name%>
+		</li>
 	</ul>
+ </br>
+</br>
 
-	<a href="/reviews/new/<%=dataFromGoogle.place_id%>"> Leave a review of <%=dataFromGoogle.name%> </a>
+
+	<!-- <h1>Search for Cafés by Zip Code</h1> -->
+
+	<a href="/places/new">Not the grind you're looking for? Click here to review a new café!</a>
+<!-- 	<form action="/places/search" method="POST">
+		<input type="text" name="zipcode">
+		<input type="submit" name="Submit">
+	</form> -->
 
 </body>
 </html>
