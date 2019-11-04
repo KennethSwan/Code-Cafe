@@ -44,7 +44,23 @@ router.get('/:id', async (req, res) => {
 			res.send(err)
 		}
 	})
+//reviews edit route
+router.get('/:id/edit', async (req, res) => {
+	try {
+		const allPlaces = await Place.find({})
+		const foundPlaceReview = await Place.findOne({'reviews': req.params.id})
+		.populate({path: 'reviews', match: {_id: req.params.id}})
+		.exec()
 
+		res.render('places/edit.ejs', {
+			review: foundPlaceReview.reviews[0],
+			places: allPlaces,
+			placeReview: foundPlaceReview
+		})
+	} catch (err){
+		re.semd(err)
+	}
+})
 
 
 // // this grabs information from the Google API 
