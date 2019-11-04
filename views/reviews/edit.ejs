@@ -12,14 +12,14 @@
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/reviews">Reviews Index</a>
+            <a href="/review">Reviews Index</a>
           </li>
         </ul>
       </nav>
     </header>
     <main>
       <h2>Review:</h2>
-      <form action="/reviews/<%=review._id%>?_method=PUT" method="post">
+      <form action="/review/<%=review._id%>?_method=PUT" method="post">
         <select name="userId">
             <% for(let i = 0; i < users.length; i++) { %>
                 <option
