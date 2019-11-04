@@ -1,5 +1,4 @@
-require('dotenv').config()
-// console.log(process.env);
+
 const express = require('express') 
 const app = express()
 const PORT = process.env.PORT
@@ -16,32 +15,28 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-app.use(methodOverride('_method')); 
-app.use(bodyParser.urlencoded({extended: false})); 
+const secretInfo = require('./secretInfo.js')
 
-const usersController = require('./controllers/users.js');
-app.use('/users', usersController) 
-
-// everything that should be handled by reviews controller
-const reviewsController = require('./controllers/reviews.js'); 
-// so urls should start with /reviews
-app.use('/review', reviewsController)
+app.use(session({
+	secret: secretInfo.sessionSecret,
+	resave: false 
+	saveUninitialized: false,
+}));
 
 
-// home 
-app.get('/', (req, res) => {
-	console.log(req.session, 'home route');
-	res.render('user/index.ejs', {
-		logOut: req.session.logOutMsg
-	})
-})
+app.use(methodOverride('_method'));//must come before our routes
+app.use(bodyParser.urlencoded({extended: false}));
 
+const reviewController = require('./controllers/review.js')
+app.use('/review', reviewController);
 
+const userController = require('./controllers/user.js');
+app.use('/user', userController);
 
-
-
-
-
+// home page
+app.get('/',(req, res) => {
+  res.render('home.ejs')
+});
 
 
 
