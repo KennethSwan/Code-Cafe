@@ -68,13 +68,28 @@ router.post('/', async (req,res) => {
 	try{
 		const findPlace = Place.findById(req.body.placeId);
 		const createReview = Review.create(req.body);
-		const[foundPlace, createReview] = await Promise.all([findPlace, createReview])
+		const[foundPlace, createdReview] = await Promise.all([findPlace, createReview])
 		foundPlace.reviews.push(createReview)
 		await foundPlace.save();
 		res.redirect('/show.ejs')
 
 	} catch(err){
 		console.log('error');
+		res.send(err)
+	}
+})
+
+router.delete('/:id', async (req, res) => {
+	console.log('delete');
+	try{
+		const deleteReview = Review.findByIdAndRemove(req.params.id)
+		const findPlace = Review.findOne({'reviews': req.params.id})
+		const [deletedReviewResponse, foundPlace] = await Promise.all([deleteReview, findReview])
+		console.log(foundPlace, ' found place');
+		foundPlace.reviews.remove(req.params.id)
+		await foundReview.save()
+		res.redirect('/reviews')
+	} catch(err){
 		res.send(err)
 	}
 })
