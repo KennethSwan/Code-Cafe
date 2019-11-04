@@ -5,8 +5,8 @@ const reviewSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: 'User'
 	}],
-	name: String, 
-	body: String,
+	cafe: String, // or number to identify the index 
+	text: String, 
 })
 // 	placeId: String, // from Google
 // 	outlets: String, 

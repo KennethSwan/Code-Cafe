@@ -1,0 +1,7 @@
+cafeList = [
+	{ 
+		name: 
+		address:
+		text
+	}
+];
