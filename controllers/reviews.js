@@ -16,9 +16,16 @@ router.get('/', async(req, res) => {
 	}
 })
 
-
-router.get('/new', (req, res) => {
-	res.render('new.ejs')
+// retrieving all places and storing them in a variable called allPlaces 
+router.get('/new', async (req, res) => {
+	try{
+		const allPlaces = await. Place.find();
+		res.render('new.ejs', {
+			places: allPlaces
+		})
+	} catch (err){
+		res.send(err)
+	}
 })
 
 
