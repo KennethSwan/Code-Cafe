@@ -94,6 +94,29 @@ router.delete('/:id', async (req, res) => {
 	}
 })
 
+router.put('/:id', async (req, res) => {
+	try {
+		const findUpdatedReview = Review.findByIdAndUpdate(req.params.id, req.body, {new: true});
+		const findFoundPlace = Place.findOne({'reviews': req.params.id});
+
+		const [updatedReview, foundPlace] = await Promise.all([findUpdatedReview, findFoundPlace])
+
+		if(foundPlace._id.toString() != req.body.placeId){
+			foundPlace.reviews.remove(req.params.id)
+			await foundPlace.save();
+			const newPlace = await Place.findById(req.body.authorId)
+			newPlace.reviews.push(updatedArticle);
+			const savedNewPlace = await newPlace.save()
+			res.render('show.ejs' + req.params.id)
+		}else{
+			res.redirect('show.ejs' + req.params.id)
+		}
+	}catch (err){
+		console.log(err);
+		res.send(err)
+	}
+})
+
 
 // // this grabs information from the Google API 
 // router.get('/new/:place_id', async (req, res, next) => {
