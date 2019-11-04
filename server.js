@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const express = require('express') 
 const app = express()
 const PORT = process.env.PORT
@@ -10,19 +10,10 @@ const session = require('express-session')
 require('./db/db');
 
 app.use(session({
-	secret: process.env.SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
 }));
-
-const secretInfo = require('./secretInfo.js')
-
-app.use(session({
-	secret: secretInfo.sessionSecret,
-	resave: false 
-	saveUninitialized: false,
-}));
-
 
 app.use(methodOverride('_method'));//must come before our routes
 app.use(bodyParser.urlencoded({extended: false}));
