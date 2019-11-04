@@ -19,7 +19,7 @@ router.get('/', async(req, res) => {
 // retrieving all places and storing them in a variable called allPlaces 
 router.get('/new', async (req, res) => {
 	try{
-		const allPlaces = await. Place.find();
+		const allPlaces = await Place.find();
 		res.render('new.ejs', {
 			places: allPlaces
 		})
@@ -27,7 +27,23 @@ router.get('/new', async (req, res) => {
 		res.send(err)
 	}
 })
-
+// reviews show route
+router.get('/:id', async (req, res) => {
+	try {
+		const foundPlace = await Place.findOne({'reviews': req.params.id})
+		.populate({
+			path: 'reviews',
+			match: {_id: req.params.id}
+		})
+		.exec()
+		res.render('show.ejs', {
+			place: foundPlace,
+			review: foundPlace.reviews[0]
+		})
+		} catch(err){
+			res.send(err)
+		}
+	})
 
 
 
