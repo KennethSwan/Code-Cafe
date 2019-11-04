@@ -13,9 +13,9 @@ router.post('/login' , async (req, res) => {
 		if(foundUser){
 			if(bcrypt.compareSync(req.body.password, foundUser.password)){
 				req.session.message = '';
-				req.session.user = foundUser
+				req.session.username = foundUser.username
 				req.session.logged = true;
-				res.redirect('/places/search')
+				res.redirect('/places/show.ejs')
 			} else {
 				req.session.message = 'Username or password is incorrect';
 				res.redirect('/')
@@ -43,13 +43,12 @@ router.post('/registration', async (req, res) => {
 
 	// creating a user in the db - query
 	const createdUser = await User.create(userDbEntry);
-	console.log("\nhere is the user we created");
 	console.log(createdUser);
 
-	req.session.user = createdUser;
+	req.session.username = createdUser.username;
 	req.session.logged = true; 
 
-	res.redirect('/places/search')	
+	res.redirect('/places/show.ejs')	
 })
 
 // creates a new cookie! 

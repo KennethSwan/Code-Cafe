@@ -22,17 +22,16 @@ app.use(bodyParser.urlencoded({extended: false}));
 const usersController = require('./controllers/users.js');
 app.use('/users', usersController) 
 
-
 // everything that should be handled by reviews controller
 const reviewsController = require('./controllers/reviews.js'); 
 // so urls should start with /reviews
-app.use('/reviews', reviewsController)
+app.use('/review', reviewsController)
 
 
 // home 
 app.get('/', (req, res) => {
 	console.log(req.session, 'home route');
-	res.render('users/index.ejs', {
+	res.render('user/index.ejs', {
 		logOut: req.session.logOutMsg
 	})
 })

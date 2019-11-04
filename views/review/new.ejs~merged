@@ -1,39 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Review Page</title>
+	<title></title>
 </head>
 <body>
-	<h1>Leave a review for: !</h1>
+<<<<<<< HEAD
+	<h2>List of Place By Zipcode </h2>
+	<ul>		
+		<% for(let i = 0; i < dataFromGoogle.length; i++) {%>
+			<li>
+				<a href="/places/search/<%=dataFromGoogle[i].place_id%>"> <%=dataFromGoogle[i].name%>
+				</a>
+				<%=dataFromGoogle[i].formatted_address%>
+			</li>
+		<%}%>
+	</ul>
+	<form action="/places/search" method="POST">
+		<input type="text" name="zipcode">
+		<input type="submit" name="Submit">
+	</form>
 
-	<form action="" method="">
-		Number of Outlets
+=======
+
+	<h1>Landing page for new place addition</h1>
+</br>
+</br>
+<form action="/show" method="POST">
+Café Name:
+<br> 
+<input type="text" name="name">
+</br>
+Number of Outlets:
+<br>
 		<input type="text" name="outlets">
 		<br>
 		Wifi 
 		<input type="checkbox" name="wifi"> 
 		<br>
-		Drinks 
-		<input type="checkbox" name="caffeinatedDrinks">Caffeinated Drinks <br> 
+		Drinks
+		</br> 
+		<input type="checkbox" name="caffeinatedDrinks">Caffeinated Drinks 
+		<br> 
 		<input type="checkbox" name="alcoholicDrinks">Alcoholic Drinks <br> 
-		Food Options 
+		Food Options
+		</br>
 		<input type="checkbox" name="breakfast">Breakfast 
 		<br>
 		<input type="checkbox" name="lunch">Lunch
 		<br>
-		<input type="checkbox" name="dinner">Dinner 
+		<input type="checkbox" name="dinner">Dinner
+		<br> 
 		Food Restrictions
+		<br>
 		<input type="checkbox" name="vegan">Vegan 
 		<br>
 		<input type="checkbox" name="glutenFree">Gluten Free 
 		<br>
 		<input type="checkbox" name="lactoseIntolerant">Lactose Intolerant 
+		<br>
 		Seating
+		<br>
 		<input type="checkbox" name="comfortableChairs">Comfortable Chairs  
 		<br>
 		<input type="checkbox" name="outdoorSeating">Outdoor Seating  
 		<br>
 		Atmosphere
+		<br>
 		<input type="checkbox" name="busy">Busy 
 		<br>
 		<input type="checkbox" name="relaxed">Relaxed
@@ -42,20 +74,24 @@
 		<br>
 		<input type="checkbox" name="hip">Hip
 		<br>
-		<input type="text" name="atmosphereDescription"> 
+		Describe the atmosphere:
+		<br>
+		<input type="text" name="atmosphereDescription">
 		<br>
 		Music
+		<br>
 		<input type="checkbox" name="soft">Soft 
 		<br>
 		<input type="checkbox" name="energizing">Energizing 
 		<br>
 		<input type="checkbox" name="intense">Intense
 		<br>
-
-		<input type="submit" value="Submit">
-
-	</form>
-
-
+</br>
+What did you think?
+</br>	
+<textarea rows="5" name="reviewText" col="50"></textarea>
+<button type="Submit">Add Review!</button>
+</form>
+>>>>>>> 56546aab2ba577ea7e19072ca71abb5188b1d553
 </body>
 </html>

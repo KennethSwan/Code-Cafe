@@ -27,8 +27,19 @@ const reviewSchema = new mongoose.Schema({
 	energizing: Boolean,
 	intense: Boolean
 
+	intense: Boolean,
+	user: {
+		type: mongoose.Schema.Types.ObjectId, 
+		ref: 'User'
+	},
+	additionalInfo: String
+	// name -- from google
+	// address -- from google 
+}); 
+
+
 	text: String, 
-})
+
 
 const Review = mongoose.model('Review', reviewSchema)
 
