@@ -4,14 +4,21 @@ const Review = require("../models/reviews")
 const Place = require("../models/places")
 const superAgent = require('superagent')
 
-
-
-
-
+// storing all reviews in foundReviews
+router.get('/', async(req, res) => {
+	try{
+		const foundReviews = await Review.find({})
+		res.render('show.ejs', {
+			reviews: foundReviews
+		})
+	} catch(err){
+		res.send(err)
+	}
+})
 
 
 router.get('/new', (req, res) => {
-	res.render('reviews/new.ejs')
+	res.render('new.ejs')
 })
 
 
@@ -197,118 +204,118 @@ router.post('/:place_id', async(req, res, next) => {
 // this edit route will have old information from the database (from the update route)
 // to hit this route when button is clicked. it is going to edit an old review with the 
 // older checkboxes visible to change 
-router.get('/:place_id/edit/:review_id', async (req, res, next) => {
+// router.get('/:place_id/edit/:review_id', async (req, res, next) => {
 
-	// get data from google Place Details -- info about one place
-	const placeId = req.params.place_id
+// 	// get data from google Place Details -- info about one place
+// 	const placeId = req.params.place_id
 
-	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-	const placeToAdd = {}
-	placeToAdd.placeId = req.params.place_id
-	const addedPlace = await Place.create(placeToAdd)
-	const foundPlace = await Place.findOne({ placeId: req.params.place_id })
-	const foundReviews = await Review.find({ place: foundPlace._id })
-	const foundReviewId = await Review.find(foundReviews.id)
+// 	// use req.params.place_id -- build a URL
+// 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+// 	const placeToAdd = {}
+// 	placeToAdd.placeId = req.params.place_id
+// 	const addedPlace = await Place.create(placeToAdd)
+// 	const foundPlace = await Place.findOne({ placeId: req.params.place_id })
+// 	const foundReviews = await Review.find({ place: foundPlace._id })
+// 	const foundReviewId = await Review.find(foundReviews.id)
 
-	try{
+// 	try{
 
-		const dataFromGoogle = await superAgent.get(url)
+// 		const dataFromGoogle = await superAgent.get(url)
 
-		Review.findById(
-			req.params._id,
-			(err, addedReview) => {
-				if(err){
-					res.send(err);
-				} else {
-					res.render('places/edit2.ejs', { 
-						dataFromGoogle: dataFromGoogle.body.result, 
-						foundPlace: addedPlace,
-						foundReview: addedReview,
-				})
-		}
-	})
-	} catch (err) {
-		next(err)
-	}
+// 		Review.findById(
+// 			req.params._id,
+// 			(err, addedReview) => {
+// 				if(err){
+// 					res.send(err);
+// 				} else {
+// 					res.render('places/edit2.ejs', { 
+// 						dataFromGoogle: dataFromGoogle.body.result, 
+// 						foundPlace: addedPlace,
+// 						foundReview: addedReview,
+// 				})
+// 		}
+// 	})
+// 	} catch (err) {
+// 		next(err)
+// 	}
 	
-})
+// })
 
 
 
 // this is our update route 
 // this is going to update the data base
-router.put('/:place_id', async(req, res, next) => {
+// router.put('/:place_id', async(req, res, next) => {
 
-	// get data from google Place Details -- info about one place
-	const placeId = req.params.place_id
+// 	// get data from google Place Details -- info about one place
+// 	const placeId = req.params.place_id
 
-	// use req.params.place_id -- build a URL
-	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-	const placeToAdd = {}
-	placeToAdd.placeId = req.params.place_id
-	const addedPlace = await Place.create(placeToAdd)
-	const addedReview = await Review.create(reviewToAdd)
+// 	// use req.params.place_id -- build a URL
+// 	const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+// 	const placeToAdd = {}
+// 	placeToAdd.placeId = req.params.place_id
+// 	const addedPlace = await Place.create(placeToAdd)
+// 	const addedReview = await Review.create(reviewToAdd)
 
 
-	try{
+// 	try{
 
-		const dataFromGoogle = await superAgent.get(url)
+// 		const dataFromGoogle = await superAgent.get(url)
 
-		Review.findByIdAndUpdate(req.params._id,
-		 foundPlace.wifi,
-		 foundPlace.caffeinatedDrinks,
-		 foundPlace.alcoholicDrinks,
-		 foundPlace.breakfast,
-		 foundPlace.lunch,
-		 foundPlace.dinner,
-		 foundPlace.vegan,
-		 foundPlace.glutenFree,
-		 foundPlace.lactoseIntolerant,
-		 foundPlace.comfortableChairs,
-		 foundPlace.outdoorSeating,
-		 foundPlace.busy,
-		 foundPlace.relaxed,
-		 foundPlace.stuffy,
-		 foundPlace.hip,
-		 foundPlace.soft,
-		 foundPlace.energizing,
-		 foundPlace.intense,
-			(err, updatedReview) => {
-				if(err){
-					res.send(err);
-				} else {
-					res.render('show2.ejs', { 
-						dataFromGoogle: dataFromGoogle.body.result, 
-						foundPlace: addedPlace,
-						foundReview: addedReview
+// 		Review.findByIdAndUpdate(req.params._id,
+// 		 foundPlace.wifi,
+// 		 foundPlace.caffeinatedDrinks,
+// 		 foundPlace.alcoholicDrinks,
+// 		 foundPlace.breakfast,
+// 		 foundPlace.lunch,
+// 		 foundPlace.dinner,
+// 		 foundPlace.vegan,
+// 		 foundPlace.glutenFree,
+// 		 foundPlace.lactoseIntolerant,
+// 		 foundPlace.comfortableChairs,
+// 		 foundPlace.outdoorSeating,
+// 		 foundPlace.busy,
+// 		 foundPlace.relaxed,
+// 		 foundPlace.stuffy,
+// 		 foundPlace.hip,
+// 		 foundPlace.soft,
+// 		 foundPlace.energizing,
+// 		 foundPlace.intense,
+// 			(err, updatedReview) => {
+// 				if(err){
+// 					res.send(err);
+// 				} else {
+// 					res.render('show2.ejs', { 
+// 						dataFromGoogle: dataFromGoogle.body.result, 
+// 						foundPlace: addedPlace,
+// 						foundReview: addedReview
 
-				})
-		}
-	})
-	} catch (err) {
-		next(err)
-	}
-})
+// 				})
+// 		}
+// 	})
+// 	} catch (err) {
+// 		next(err)
+// 	}
+// })
 
 // this is our delete route 
 // it will delete reviews that are already saved in the database 
-router.delete('/show/:place_id/:review_id', async (req, res, next) => {
+// router.delete('/show/:place_id/:review_id', async (req, res, next) => {
 	
-    try {
-    	const placeId = req.params.place_id
-		const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
-		const placeToAdd = {}
-		placeToAdd.placeId = req.params.place_id;
-		const deletedReview = await Review.findByIdAndDelete(req.params.review_id);
-		console.log("this is the deleted review")
-		console.log(deletedReview);
+//     try {
+//     	const placeId = req.params.place_id
+// 		const url = "https://maps.googleapis.com/maps/api/place/details/json?place_id="+placeId+"&key="+process.env.API_KEY;
+// 		const placeToAdd = {}
+// 		placeToAdd.placeId = req.params.place_id;
+// 		const deletedReview = await Review.findByIdAndDelete(req.params.review_id);
+// 		console.log("this is the deleted review")
+// 		console.log(deletedReview);
         
-		res.redirect('/places/' + placeId);
-    } catch (err){
-        next(err);
-    }
-})
+// 		res.redirect('/places/' + placeId);
+//     } catch (err){
+//         next(err);
+//     }
+// })
 
 
 
