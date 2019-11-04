@@ -4,7 +4,7 @@ const Review = require("../models/review")
 const User = require("..models/user")
 const superAgent = require('superagent')
 
-<<<<<<< HEAD:controllers/review.js
+
 // show the user a search page
 router.get('/search', (req, res) => {
 	res.render('review/search.ejs')
@@ -47,7 +47,7 @@ router.get('/search/:place_id', async (req, res, next) => {
 		next(err)
 	}
 
-=======
+
 // storing all reviews in foundReviews
 router.get('/', async(req, res) => {
 	try{
@@ -58,15 +58,15 @@ router.get('/', async(req, res) => {
 	} catch(err){
 		res.send(err)
 	}
->>>>>>> 0399f78b736d1894d4d2ed5a218c906a8e224333:controllers/reviews.js
+
 })
 
 // retrieving all places and storing them in a variable called allPlaces 
 router.get('/new', async (req, res) => {
 	try{
-		const allPlaces = await Place.find();
+		const allUsers = await User.find();
 		res.render('new.ejs', {
-			places: allPlaces
+			users: allUsers
 		})
 	} catch (err){
 		res.send(err)
@@ -75,15 +75,15 @@ router.get('/new', async (req, res) => {
 // reviews show route
 router.get('/:id', async (req, res) => {
 	try {
-		const foundPlace = await Place.findOne({'reviews': req.params.id})
+		const foundUser = await User.findOne({'reviews': req.params.id})
 		.populate({
 			path: 'reviews',
 			match: {_id: req.params.id}
 		})
 		.exec()
 		res.render('show.ejs', {
-			place: foundPlace,
-			review: foundPlace.reviews[0]
+			user: foundUser,
+			review: foundUser.reviews[0]
 		})
 		} catch(err){
 			res.send(err)
@@ -92,15 +92,15 @@ router.get('/:id', async (req, res) => {
 //reviews edit route
 router.get('/:id/edit', async (req, res) => {
 	try {
-		const allPlaces = await Place.find({})
-		const foundPlaceReview = await Place.findOne({'reviews': req.params.id})
+		const allUsers = await User.find({})
+		const foundUserReview = await User.findOne({'reviews': req.params.id})
 		.populate({path: 'reviews', match: {_id: req.params.id}})
 		.exec()
 
-		res.render('places/edit.ejs', {
-			review: foundPlaceReview.reviews[0],
-			places: allPlaces,
-			placeReview: foundPlaceReview
+		res.render('edit.ejs', {
+			review: foundUserReview.reviews[0],
+			users: allUsers,
+			userReview: foundUserReview
 		})
 	} catch (err){
 		re.send(err)
@@ -111,18 +111,16 @@ router.get('/:id/edit', async (req, res) => {
 
 router.post('/', async (req,res) => {
 	try{
-		const findPlace = Place.findById(req.body.placeId);
+		const findUser = User.findById(req.body.userId);
 		const createReview = Review.create(req.body);
-		const[foundPlace, createdReview] = await Promise.all([findPlace, createReview])
-		foundPlace.reviews.push(createReview)
-		await foundPlace.save();
-		res.redirect('/show.ejs')
+		const[foundUser, createdReview] = await Promise.all([findUser, createReview])
+		foundUser.reviews.push(createReview)
+		await foundUser.save();
+		res.redirect('show.ejs')
 
-<<<<<<< HEAD:controllers/review.js
 // direct to page to create review 
 router.get('/new', (req, res) => {
 	res.render('review/new2.ejs')
-=======
 	} catch(err){
 		console.log('error');
 		res.send(err)
@@ -133,12 +131,12 @@ router.delete('/:id', async (req, res) => {
 	console.log('delete');
 	try{
 		const deleteReview = Review.findByIdAndRemove(req.params.id)
-		const findPlace = Review.findOne({'reviews': req.params.id})
-		const [deletedReviewResponse, foundPlace] = await Promise.all([deleteReview, findReview])
-		console.log(foundPlace, ' found place');
-		foundPlace.reviews.remove(req.params.id)
+		const findUser = Review.findOne({'reviews': req.params.id})
+		const [deletedReviewResponse, foundUser] = await Promise.all([deleteReview, findReview])
+		console.log(foundUser, ' found user');
+		foundUser.reviews.remove(req.params.id)
 		await foundReview.save()
-		res.redirect('/reviews')
+		res.redirect('show.ejs')
 	} catch(err){
 		res.send(err)
 	}
@@ -147,16 +145,16 @@ router.delete('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
 	try {
 		const findUpdatedReview = Review.findByIdAndUpdate(req.params.id, req.body, {new: true});
-		const findFoundPlace = Place.findOne({'reviews': req.params.id});
+		const findFoundUser = User.findOne({'reviews': req.params.id});
 
-		const [updatedReview, foundPlace] = await Promise.all([findUpdatedReview, findFoundPlace])
+		const [updatedReview, foundUser] = await Promise.all([findUpdatedReview, findFoundUser])
 
-		if(foundPlace._id.toString() != req.body.placeId){
-			foundPlace.reviews.remove(req.params.id)
-			await foundPlace.save();
-			const newPlace = await Place.findById(req.body.authorId)
-			newPlace.reviews.push(updatedArticle);
-			const savedNewPlace = await newPlace.save()
+		if(foundUser._id.toString() != req.body.userId){
+			foundUser.reviews.remove(req.params.id)
+			await foundUser.save();
+			const newUser = await User.findById(req.body.userId)
+			newUser.reviews.push(updatedReview);
+			const savedNewUser = await newUser.save()
 			res.render('show.ejs' + req.params.id)
 		}else{
 			res.redirect('show.ejs' + req.params.id)
@@ -165,7 +163,7 @@ router.put('/:id', async (req, res) => {
 		console.log(err);
 		res.send(err)
 	}
->>>>>>> 927d718624c0e71f38856caaed1199a85488228b:controllers/reviews.js
+
 })
 
 // shows user basic information about place 
@@ -343,18 +341,16 @@ router.get('/new/:place_id', async (req, res, next) => {
 
 // 		const addedReview = await Review.create(reviewToAdd)
 
-
-<<<<<<< HEAD:controllers/review.js
 		res.render('review/show2.ejs', {
 			dataFromGoogle: dataFromGoogle.body.result, 
 			foundPlace: addedPlace,
 			foundReview: addedReview
-=======
+
 // 		res.render('places/show2.ejs', {
 // 			dataFromGoogle: dataFromGoogle.body.result, 
 // 			foundPlace: addedPlace,
 // 			foundReview: addedReview
->>>>>>> 927d718624c0e71f38856caaed1199a85488228b:controllers/reviews.js
+
 
 // 		})
 
