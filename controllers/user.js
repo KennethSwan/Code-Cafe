@@ -127,12 +127,17 @@ router.post('/', async (req, res, next) => {
 			req.session.username = createdUser.username
 			
 			// redirect back to different page
-			res.redirect('/')
+			// everything that you pass into redirect needs to be a url 
+			// the first / means localHost300 (the domain), after that, the next part of the URL is the xpress app is going to filter through 
+			// each chunk is going to be a slash 
+			res.redirect('/cafeList/')
 		}
 
 	} catch(err) {
 	  	next(err)
 	}
+
+
 
 })
 

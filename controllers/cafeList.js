@@ -6,16 +6,18 @@ const User = require("../models/user.js")
 
 
 // show the user a search page
+// ask me to show you another page is a get request 
 router.get('/search', (req, res) => {
 	res.render('review/search.ejs')
 })
 
 // storing all reviews in foundReviews
-router.get('/', async(req, res) => {
+// if you are not using a database query, you don't need async 
+// you do not need a beginning slash in res.render('/') <-- no!! 
+router.get('/', (req, res) => {
 	try{
-		const foundReviews = await Review.find({})
-		res.render('show.ejs', {
-			reviews: foundReviews
+		res.render('cafeList/index.ejs', {
+			
 		})
 	} catch(err){
 		res.send(err)

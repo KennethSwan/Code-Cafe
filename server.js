@@ -9,16 +9,17 @@ const session = require('express-session')
 
 require('./db/db');
 
-// app.use(session({
-//     secret: 
-//     resave: false,
-//     saveUninitialized: false
-// }));
+app.use(session({
+    secret: process.env.SESSION_SECRET, 
+    resave: false,
+    saveUninitialized: false
+}));
 
 app.use(methodOverride('_method'));//must come before our routes
 app.use(bodyParser.urlencoded({extended: false}));
 
 const cafeList = require("./models/cafeList.js")
+app.use('/cafeList', cafeList)
 
 const userController = require('./controllers/user.js');
 app.use('/user', userController);
