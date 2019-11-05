@@ -92,12 +92,8 @@ router.post('/', async (req, res, next) => {
 		const user = await User.findOne({
 			username: username
 		})
-		console.log("\nhere is what we found when trying to see if user name exists POST /users");
-		console.log(user);	  
 
 		if(user !== null) {
-			console.log("username taken");
-			// tell them NO -- send a message
 			req.session.message = "Username taken!"
 			// redirect to reg page
 			res.redirect('/user/new')
@@ -128,7 +124,8 @@ router.post('/', async (req, res, next) => {
 			
 			// redirect back to different page
 			// everything that you pass into redirect needs to be a url 
-			// the first / means localHost300 (the domain), after that, the next part of the URL is the xpress app is going to filter through 
+			// the first / means localHost300 (the domain), after that, 
+			// the next part of the URL is the xpress app is going to filter through 
 			// each chunk is going to be a slash 
 			res.redirect('/cafeList/')
 		}
@@ -136,8 +133,6 @@ router.post('/', async (req, res, next) => {
 	} catch(err) {
 	  	next(err)
 	}
-
-
 
 })
 
