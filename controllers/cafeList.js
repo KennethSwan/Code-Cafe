@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Review = require("../models/review.js")
+const cafeList = require("./models/cafeList.js")
 const User = require("../models/user.js")
 
 const superAgent = require('superagent')

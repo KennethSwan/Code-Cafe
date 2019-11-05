@@ -1,8 +1,7 @@
 const express = require('express'); 
 const router = express.Router();
 const User = require('../models/user')
-const Review = require('../models/review')
-const superAgent = require('superagent')
+const cafeList = require("./models/cafeList.js")
 const bcrypt = require('bcryptjs')
 
 router.get('/new', (req, res) => {

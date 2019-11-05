@@ -10,7 +10,7 @@ const session = require('express-session')
 require('./db/db');
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    // secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -21,8 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 const reviewController = require('./controllers/review.js')
 app.use('/review', reviewController);
 
-const userController = require('./controllers/user.js');
-app.use('/user', userController);
+const cafeList = require("./models/cafeList.js")
 
 // home page
 app.get('/',(req, res) => {
