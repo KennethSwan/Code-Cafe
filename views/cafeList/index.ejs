@@ -4,6 +4,39 @@
   <title>Reviews Index</title>
 </head>
 <body>
-  <h1>This is the Reviews Index Page!</h1>
+  <h1>List of Cafes and Reviews</h1>
+
+	<ul class="cafes">
+		<% for(let i =0; i < cafeList.length; i++) {%>
+
+			<li>
+				<a href="/cafeList/<%=i%>"> 
+					<%= cafeList[i].name %> 
+				</a>
+			</li>
+			<li>
+				<a href="/cafeList/<%=i%>"> 
+					<%= cafeList[i].address %> 
+				</a>
+			</li>
+				<li>
+				<a href="/cafeList/<%=i%>"> 
+					<%= cafeList[i].review %> 
+				</a>
+			</li>
+
+			<form method="GET" action="/cafeList/<%=i%>/edit">
+				<button type="Submit">Edit Review</button>
+			</form>
+
+			<form method="POST" action="/cafeList/<%=i%>?_method=DELETE">
+				<button type="Submit">Delete Review</button>
+			</form>
+		<% } %>
+	</ul>
+
+	<nav>
+		<a href="/cafeList/new">Add a Cafe & Review</a>
+	</nav>
 </body>
 </html>

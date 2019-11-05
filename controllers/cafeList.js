@@ -4,8 +4,6 @@ const router = express.Router();
 const cafeList = require("./models/cafeList.js")
 const User = require("../models/user.js")
 
-const superAgent = require('superagent')
-
 
 // show the user a search page
 router.get('/search', (req, res) => {
