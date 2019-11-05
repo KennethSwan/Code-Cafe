@@ -1,41 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
   <title></title>
-  </head>
-  <body>
-    <header>
-      <h1>Edit <%=review.name%>'s Info</h1>
-      <nav>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/review">Reviews Index</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <h2>Review:</h2>
-      <form action="/review/<%=review._id%>?_method=PUT" method="post">
-        <select name="userId">
-            <% for(let i = 0; i < users.length; i++) { %>
-                <option
-                    value="<%=users[i]._id%>"
-                    <% if(users[i]._id.toString() === reviewUser._id.toString()){ %>
-                        selected
-                    <% } %>
-                    >
-                    <%=users[i].name%>
-                </option>
-            <% } %>
-        </select><br/>
-        <input type="text" name="title" value="<%=review.name%>"/><br/>
-        <textarea name="body"><%=review.body%></textarea><br/>
-        <input type="submit" value="Update Review"/>
-      </form>
-    </main>
-  </body>
+</head>
+<body>
+
+  <h1>Edit <%=cafeList.name%>'s Info & Review</h1>
+
+  <form method="POST" action="/cafeList/<%=index%>?_method=PUT"><br/> 
+
+    Name: <input type="text" name="name" value="<%=cafeList.name%>">
+
+    <br/>
+
+    Address: <input type="text" name="image" value="<%=cafeList.address%>">
+    
+    <br/>
+
+    <textarea rows="5" name="review" col="50"></textarea>
+    
+    <br> 
+
+    <input type="submit" name="cafe" value="Submit Changes" />
+
+  </form>  
+
+  <ul>
+    <li>
+      <a href="/index">Cafe List</a>
+    </li>
+  </ul>
+  
+</body>
 </html>
