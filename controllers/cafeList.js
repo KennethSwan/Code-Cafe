@@ -26,7 +26,7 @@ router.get('/cafeList/:id', (req, res) => {
 // post route 
 router.post('/', (req, res) => {
 	cafeList.push(req.body);
-	res.redirect('/cafeList')
+	res.redirect('/cafeList/')
 })
 
 // edit route 
@@ -37,9 +37,15 @@ router.get('/cafeList/:index/edit', (req, res) => {
 	})
 })
 
+// put route 
 router.put('/cafeList/:index', (req, res) => {
 	cafeList[req.params.index] = req.body;
-	res.redirect('/')
+	res.redirect('/cafeList/')
+})
+
+app.delete('cafeList/:index', (req, res) => {
+	cafeList.splice(req.params.index, 1)
+	res.redirect('/cafeList/')
 })
 })
 
