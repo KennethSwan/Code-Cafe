@@ -9,9 +9,38 @@ router.get('/', (req, res) => {
 		cafeList: cafeList,
 	})
 
+// new route
 router.get('/cafeList/new', (req, res) => {
 	res.render('new.ejs')
 })
 
+// show route 
+router.get('/cafeList/:id', (req, res) => {
+	const oneCafe = cafeList[req.params.id]
+	res.render('show.ejs', {
+		cafeList: oneCafe,
+		i: req.params.id
+	})
+})
+
+// post route 
+router.post('/', (req, res) => {
+	cafeList.push(req.body);
+	res.redirect('/cafeList')
+})
+
+// edit route 
+router.get('/cafeList/:index/edit', (req, res) => {
+	res.render('edit.ejs', {
+		oneCafe: cafeList[req.params.index],
+		index: req.params.index
+	})
+})
+
+router.put('/cafeList/:index', (req, res) => {
+	cafeList[req.params.index] = req.body;
+	res.redirect('/')
+})
+})
 
 module.exports = router;
