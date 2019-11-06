@@ -6,30 +6,14 @@ const cafeList = require("../models/cafeList.js")
 const bcrypt = require('bcryptjs')
 
 router.get('/new', (req, res) => {
-
-	let messageToShow = ""
-
-	if(req.session.message) {
-		messageToShow = req.session.message
-		req.session.message = "" // keep message from displaying twice
-	} 
 	// .render() knows it should look in the views folder
 	res.render('user/new.ejs', {
-		message: messageToShow
 	})
 })
 
 // this route shows login form
 router.get('/login', (req, res) => {
-	let messageToShow = ""
-
-	if(req.session.message) {
-		messageToShow = req.session.message
-		req.session.message = "" 
-	} 
-
 	res.render('user/login.ejs', {
-		message: messageToShow
 	})
 })
 
@@ -45,9 +29,6 @@ router.post('/login', async (req, res, next) => {
 
 		// if username does not exist
 		if(foundUsers.length === 0) {
-			console.log("Username does not exist")
-			// add message to session: 
-			req.session.message = "Invalid username or password"
 			// redirect to /login
 			res.redirect('/user/login')
 		}
@@ -59,18 +40,11 @@ router.post('/login', async (req, res, next) => {
 	 		console.log(foundUsers[0]);
 	 		// if pw is good
 			if(bcrypt.compareSync(pw, foundUsers[0].password)) {
-
-			 	// set logged in in session
-			 	req.session.loggedIn = true
-			 	req.session.username = foundUsers[0].username
 			 	// redirect to /  (home)
-			 	res.redirect('/')
+			 	res.redirect('/cafeList/')
 			}
 			// if pw is bad
 			else {
-				console.log("bad password");
-				// add message to session: 
-				req.session.message = "Invalid username or password"
 				// redirect to /login
 				res.redirect('/user/login')
 			}
@@ -120,7 +94,7 @@ router.post('/register', async (req, res, next) => {
 			// use the username from the db
 			req.session.username = createdUser.username
 			
-			res.redirect('/home.ejs')
+			res.redirect('/')
 		}
 
 	} catch(err) {
