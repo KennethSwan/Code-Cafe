@@ -36,8 +36,6 @@ router.post('/login', async (req, res, next) => {
 	 	else {
 	 		// check password
 	 		const pw = req.body.password
-
-	 		console.log(foundUsers[0]);
 	 		// if pw is good
 			if(bcrypt.compareSync(pw, foundUsers[0].password)) {
 			 	// redirect to /  (home)
@@ -69,8 +67,7 @@ router.post('/register', async (req, res, next) => {
 		})
 
 		if(user !== null) {
-			req.session.message = "Username taken!"
-			// redirect to reg page
+
 			res.redirect('/user/new')
 		}
 
@@ -88,11 +85,6 @@ router.post('/register', async (req, res, next) => {
 				username: username,
 				password: hashedPassword
 			})
-
-			// use session to make user be "logged in"
-			req.session.loggedIn = true
-			// use the username from the db
-			req.session.username = createdUser.username
 			
 			res.redirect('/')
 		}

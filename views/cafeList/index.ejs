@@ -4,7 +4,7 @@
   <title>Reviews Index</title>
 </head>
 <body>
-  <h1>List of Cafes and Reviews</h1>
+  <h1>Click on Cafe to see review</h1>
 
 	<ul class="cafes">
 		<% for(let i =0; i < cafeList.length; i++) {%>
@@ -19,18 +19,13 @@
 					<%= cafeList[i].address %> 
 				</a>
 			</li>
-				<li>
-				<a href="/cafeList/<%=i%>"> 
-					<%= cafeList[i].review %> 
-				</a>
-			</li>
 
+			<br>
 			<form method="GET" action="/cafeList/<%=i%>/edit">
 				<button type="Submit">Edit Review</button>
 			</form>
-
 			<form method="POST" action="/cafeList/<%=i%>?_method=DELETE">
-				<button type="Submit">Delete Review</button>
+				<button type="Submit">Delete Cafe</button>
 			</form>
 		<% } %>
 	</ul>

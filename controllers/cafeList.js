@@ -10,14 +10,14 @@ router.get('/', (req, res) => {
 	})
 
 // new route
-router.get('/cafeList/new', (req, res) => {
-	res.render('new.ejs')
+router.get('/new', (req, res) => {
+	res.render('cafeList/new.ejs')
 })
 
 // show route 
-router.get('/cafeList/:id', (req, res) => {
+router.get('/:id', (req, res) => {
 	const oneCafe = cafeList[req.params.id]
-	res.render('show.ejs', {
+	res.render('cafeList/show.ejs', {
 		cafeList: oneCafe,
 		i: req.params.id
 	})
@@ -30,20 +30,22 @@ router.post('/', (req, res) => {
 })
 
 // edit route 
-router.get('/cafeList/:index/edit', (req, res) => {
-	res.render('edit.ejs', {
+router.get('/:index/edit', (req, res) => {
+	res.render('cafeList/edit.ejs', {
+		// use query to find review 
+		// use a loop to add and edit reviews 
 		oneCafe: cafeList[req.params.index],
-		index: req.params.index
+		index: req.params.index 
 	})
 })
 
 // put route 
-router.put('/cafeList/:index', (req, res) => {
+router.put('/:index', (req, res) => {
 	cafeList[req.params.index] = req.body;
 	res.redirect('/cafeList/')
 })
 
-app.delete('cafeList/:index', (req, res) => {
+router.delete('/:index', (req, res) => {
 	cafeList.splice(req.params.index, 1)
 	res.redirect('/cafeList/')
 })
