@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
 	res.render('cafeList/index.ejs', {
 		cafeList: cafeList,
 	})
+})
 
 // new route
 router.get('/new', (req, res) => {
