@@ -1,6 +1,7 @@
 require('dotenv').config()
-const express = require('express') 
+const express = require('express')
 const app = express()
+const router = express.Router();// 
 const PORT = process.env.PORT
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override'); 
@@ -18,7 +19,7 @@ app.use(session({
 app.use(methodOverride('_method'));//must come before our routes
 app.use(bodyParser.urlencoded({extended: false}));
 
-const cafeList = require("./models/cafeList.js")
+const cafeList = require("./controllers/cafeList.js")
 app.use('/cafeList', cafeList)
 
 const userController = require('./controllers/user.js');

@@ -1,5 +1,6 @@
 const express = require('express'); 
 const router = express.Router();
+
 const User = require('../models/user')
 const cafeList = require("../models/cafeList.js")
 const bcrypt = require('bcryptjs')
@@ -83,7 +84,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 // registration/user "create" route
-router.post('/', async (req, res, next) => {
+router.post('/register', async (req, res, next) => {
 
 	// does a user with that username exist already? if so...
 	const username = req.body.username
@@ -114,20 +115,12 @@ router.post('/', async (req, res, next) => {
 				password: hashedPassword
 			})
 
-			console.log("\nhere is the created user in POST /users");
-			console.log(createdUser);
-
 			// use session to make user be "logged in"
 			req.session.loggedIn = true
 			// use the username from the db
 			req.session.username = createdUser.username
 			
-			// redirect back to different page
-			// everything that you pass into redirect needs to be a url 
-			// the first / means localHost300 (the domain), after that, 
-			// the next part of the URL is the xpress app is going to filter through 
-			// each chunk is going to be a slash 
-			res.redirect('/cafeList/')
+			res.redirect('/home.ejs')
 		}
 
 	} catch(err) {
