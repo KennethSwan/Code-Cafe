@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1><%=cafeList.name%></h1>
+		<ul>
+			<li>
+				 <%=cafeList.address%>
+			</li>
+			<li>
+				 <%=cafeList.review%>
+			</li>
+			
+		</ul>
+
+		<form method="POST" action="/cafeList<%=i%>?_method=DELETE">
+			<button type="Submit">Delete <%=cafeList.name%> </button>
+		</form>
+
+</body>
+</html>
