@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); 
 
 const reviewSchema = new mongoose.Schema({
-	place: Number, 
+	place: Number, // index of the array of cafeList 
 	review: String 
 })
 

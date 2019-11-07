@@ -15,7 +15,7 @@ router.get('/new', (req, res) => {
 	res.render('cafeList/new.ejs')
 })
 
-// show route 
+// show route - where you can see reviews of cafe
 router.get('/:id', (req, res) => {
 	const oneCafe = cafeList[req.params.id]
 	res.render('cafeList/show.ejs', {
@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 	})
 })
 
-// post route 
+// post route - create route
 router.post('/', (req, res) => {
 	cafeList.push(req.body);
 	res.redirect('/cafeList/')
@@ -46,10 +46,10 @@ router.put('/:index', (req, res) => {
 	res.redirect('/cafeList/')
 })
 
-router.delete('/:index', (req, res) => {
-	cafeList.splice(req.params.index, 1)
-	res.redirect('/cafeList/')
-})
-})
+//delete cafe 
+// router.delete('/:index', (req, res) => {
+// 	cafeList.splice(req.params.index, 1)
+// 	res.redirect('/cafeList/')
+// })
 
 module.exports = router;

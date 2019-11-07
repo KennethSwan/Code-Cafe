@@ -15,19 +15,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="/cafeList/<%=i%>"> 
+				<!-- <a href="/cafeList/<%=i%>">  -->
 					<%= cafeList[i].address %> 
-				</a>
+				<!-- </a> -->
 			</li>
-
-			<br>
-			<form method="GET" action="/cafeList/<%=i%>/edit">
-				<button type="Submit">Edit Review</button>
-			</form>
-			<form method="POST" action="/cafeList/<%=i%>?_method=DELETE">
-				<button type="Submit">Delete Cafe</button>
-			</form>
+			<br> 
 		<% } %>
+
 	</ul>
 
 	<br>
