@@ -14,14 +14,15 @@
 			</li>
 			
 		</ul>
+	
+		<br> 
+		<form action="/cafeList/new">
+			<button type="Submit">Add Review</button>
+		</form>
 
-		<!-- <form method="POST" action="/cafeList<%=i%>?_method=DELETE">
-			<button type="Submit">Delete <%=cafeList.name%> Review </button>
-		</form> -->
-		<br>
 		<form method="GET" action="/cafeList/<%=i%>/edit">
 			<button type="Submit">Edit Review</button>
-		</form>
+		</form> 
 		<form method="POST" action="/review/<%=i%>?_method=DELETE">
 			<button type="Submit">Delete Review</button>
 		</form>

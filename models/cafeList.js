@@ -1,6 +1,5 @@
 const mongoose = require('mongoose'); 
 
-
 const cafeList = [
 	{ 
 		name: "Goddess and the Baker",

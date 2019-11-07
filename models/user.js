@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
 		type: String, 
 		required: true
 	},
-	reviews: [{
+	review: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Review'
 	}]

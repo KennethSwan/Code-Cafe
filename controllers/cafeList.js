@@ -46,10 +46,5 @@ router.put('/:index', (req, res) => {
 	res.redirect('/cafeList/')
 })
 
-//delete cafe 
-// router.delete('/:index', (req, res) => {
-// 	cafeList.splice(req.params.index, 1)
-// 	res.redirect('/cafeList/')
-// })
 
 module.exports = router;
