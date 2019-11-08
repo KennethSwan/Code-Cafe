@@ -3,7 +3,10 @@ const router = express.Router();
 
 const User = require('../models/user')
 const cafeList = require("../models/cafeList.js")
+const Review = require("../models/review.js")
+
 const bcrypt = require('bcryptjs')
+
 
 router.get('/new', (req, res) => {
 	// .render() knows it should look in the views folder

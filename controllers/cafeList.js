@@ -3,6 +3,7 @@ const router = express.Router();
 
 const cafeList = require("../models/cafeList.js")
 const User = require("../models/user.js")
+const Review = require("../models/review.js")
 
 router.get('/', (req, res) => {
 	res.render('cafeList/index.ejs', {

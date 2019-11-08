@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const Review = require("../models/review.js")
 const cafeList = require("../models/cafeList.js")
 const User = require("../models/user.js")
 
@@ -10,34 +11,32 @@ const User = require("../models/user.js")
 	// example of query: Find({find all the reviews where the place is the req.params.index})
 
 // create new review 
-router.post('/:index/new') (req, res) => {
-	const oneCafe = cafeList[req.params.id]
-	res.render('cafeList/new2.ejs', {
-		// use query to find review 
-		// use a loop to add and edit reviews 
-		const oneCafe = cafeList[req.params.id]
-		cafeList: oneCafe,
-		i: req.params.id
-		oneCafe: cafeList[req.params.index],
-		index: req.params.index 
-	})
-}
+// router.post('/:index/new') (req, res) => {
+// 	const oneCafe = cafeList[req.params.id]
+// 	res.render('cafeList/new2.ejs', {
+// 		// use query to find review 
+// 		// use a loop to add and edit reviews 
+// 		const oneCafe = cafeList[req.params.id]
+// 		cafeList: oneCafe,
+// 		i: req.params.id
+// 		oneCafe: cafeList[req.params.index],
+// 		index: req.params.index 
+// 	})
+// }
 
-// reviews show route
-router.get('/:index/new', async (req, res) => {
+// reviews  route
+router.get('/:cafeIndex/new', async (req, res) => {
 	try {
-		const oneCafe = cafeList[req.params.id]
-		const foundUser = await User.findOne({'review': req.params.id})
-		.populate({
-			path: 'review',
-			match: {_id: req.params.id}
-		})
-		.exec()
-		res.render('cafeList/new2.ejs', {
-			user: foundUser,
-			review: foundUser.reviews[0]
-			cafeList: oneCafe,
-			oneCafe: cafeList[req.params.index],
+		const oneCafe = cafeList[req.params.cafeIndex]
+		// create session in post /login and post /register routes
+		// use session to save userId
+		// use session to find user as needed in next line
+		// const foundUser = await User.findOne({'review': req.params.cafeIndex})
+		res.render('review/new.ejs', {
+			// user: foundUser,
+			// review: foundUser.reviews[0],
+			// cafeList: oneCafe,
+			oneCafe: cafeList[req.params.cafeIndex],
 			index: req.params.index 
 		})
 		} catch(err){
