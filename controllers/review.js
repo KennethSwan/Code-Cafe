@@ -37,7 +37,6 @@ router.get('/:index/new', async (req, res) => {
 			user: foundUser,
 			review: foundUser.reviews[0]
 			cafeList: oneCafe,
-			i: req.params.id
 			oneCafe: cafeList[req.params.index],
 			index: req.params.index 
 		})

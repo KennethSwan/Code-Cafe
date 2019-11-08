@@ -25,6 +25,9 @@ app.use('/cafeList', cafeList)
 const userController = require('./controllers/user.js');
 app.use('/user', userController);
 
+const reviewController = require('./controllers/review.js')
+app.use('/review', reviewController)
+
 
 // home page
 app.get('/',(req, res) => {
