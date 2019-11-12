@@ -10,21 +10,7 @@ const User = require("../models/user.js")
 	// so in the review model that has a refrence to a number that will be the intdes number 
 	// example of query: Find({find all the reviews where the place is the req.params.index})
 
-// create new review 
-// router.post('/:index/new') (req, res) => {
-// 	const oneCafe = cafeList[req.params.id]
-// 	res.render('cafeList/new2.ejs', {
-// 		// use query to find review 
-// 		// use a loop to add and edit reviews 
-// 		const oneCafe = cafeList[req.params.id]
-// 		cafeList: oneCafe,
-// 		i: req.params.id
-// 		oneCafe: cafeList[req.params.index],
-// 		index: req.params.index 
-// 	})
-// }
-
-// reviews  route
+// new route
 router.get('/:cafeIndex/new', async (req, res) => {
 	try {
 		const oneCafe = cafeList[req.params.cafeIndex]
@@ -37,49 +23,39 @@ router.get('/:cafeIndex/new', async (req, res) => {
 			// review: foundUser.reviews[0],
 			// cafeList: oneCafe,
 			oneCafe: cafeList[req.params.cafeIndex],
-			index: req.params.index 
+			index: req.params.cafeIndex 
 		})
 		} catch(err){
 			res.send(err)
 		}
 	})
 
-// //edit route 
+//review create route 
 
-// //review create route 
+router.post('/:cafeListIndex', async (req, res, next) => {
+	try{
 
-// router.put('/' ((req, res) => {
-//  	try{
-// 		const allReviews = await Review.find({})
-// 		const foundReviewCafe = cafeList[req.params.index]
-// 		.populate({
-// 			path: 'reviews', 
-// 			match: {_id: req.params.id}})
-//  		.exec()
-//  		res.render('/cafeList/ show.ejs', {
-//  			review: foundReviewCafe.reviews[0],
-//    			reviews: allReviews,
-//    			reviewCafe: foundReviewCafe
+		const newReview = {
+			place: req.params.cafeListIndex,
+			review: req.body.review
+		}
 
-//  	})
-//    	} catch{
-//    		res.send(err)
-//    	}
-//  })
+		const createReview = await Review.create(newReview);
 
-// // router.post('/' aync (req, res, next) => {
-// // 	try{
-// // 		const findUser = User.findById(req.body.userId);
-// // 		const createReview = Review.create(req.body);
-// // 		const[foundUser, createdReview] = await Promise.all([findUser, createReview])
-// // 		foundUser.reviews.push(createReview)
-// // 		await foundUser.save();
-// // 		res.redirect('/cafeList')
-// // 	}catch(err){
-// // 		res.send(err)
-// // 	}	
+		// find the user
+		const foundUser = await User.findById(req.session.userId);
+		// change the user reviews array to include new review
+		await foundUser.reviews.push(createReview._id)
+		// find user again to update with the user object that now has the new review
+		// const updatedUser = await User.findByIdAndUpdate(req.session.userId, foundUser)
+		// await updatedUser.save()
+		res.redirect('/cafeList')
+		// res.send(req.body)
+	}catch(err){
+		res.send(err)
+	}	
 
-// // })
+})
 
 // // router.post('/') aync (req, res, next) => {
 // // 	try{
