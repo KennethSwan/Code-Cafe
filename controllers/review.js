@@ -22,7 +22,7 @@ router.get('/:cafeIndex/new', async (req, res) => {
 			// user: foundUser,
 			// review: foundUser.reviews[0],
 			// cafeList: oneCafe,
-			oneCafe: cafeList[req.params.cafeIndex],
+			oneCafe: oneCafe,
 			index: req.params.cafeIndex 
 		})
 		} catch(err){
@@ -34,7 +34,6 @@ router.get('/:cafeIndex/new', async (req, res) => {
 
 router.post('/:cafeListIndex', async (req, res, next) => {
 	try{
-
 		const newReview = {
 			place: req.params.cafeListIndex,
 			review: req.body.review
@@ -42,17 +41,32 @@ router.post('/:cafeListIndex', async (req, res, next) => {
 
 		const createReview = await Review.create(newReview);
 
+		console.log(createReview)
+
 		// find the user
 		const foundUser = await User.findById(req.session.userId);
 		// change the user reviews array to include new review
-		await foundUser.reviews.push(createReview._id)
+		const reviewArray = foundUser.review
+		reviewArray.push(createReview._id)
+
+		console.log(reviewArray)
+
+		const updatedUser = {
+			username: foundUser.username,
+			password: foundUser.password,
+			review: reviewArray
+		}
+
+		// User.findOneAndReplace({_id: req.session.userId}, updatedUser)
+
+
 		// find user again to update with the user object that now has the new review
 		// const updatedUser = await User.findByIdAndUpdate(req.session.userId, foundUser)
 		// await updatedUser.save()
 		res.redirect('/cafeList')
-		// res.send(req.body)
 	}catch(err){
-		res.send(err)
+		console.dir(err)
+		res.send("err")
 	}	
 
 })

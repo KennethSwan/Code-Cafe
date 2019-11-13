@@ -43,6 +43,8 @@ router.post('/login', async (req, res, next) => {
 			if(bcrypt.compareSync(pw, foundUsers[0].password)) {
 			 	// redirect to /  (home)
 			 	// add session here 
+			 	req.session.userId = foundUsers[0]._id; // for now, assume it's the first user in array
+				req.session.logged = true; 
 			 	res.redirect('/cafeList/')
 			}
 			// if pw is bad
@@ -89,7 +91,7 @@ router.post('/register', async (req, res, next) => {
 				username: username,
 				password: hashedPassword
 			})
-			req.session.username = req.body.username;
+			req.session.userId = createdUser._id;
 			req.session.logged = true; 
 			res.redirect('/')
 		}

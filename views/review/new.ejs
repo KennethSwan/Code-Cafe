@@ -8,11 +8,17 @@
 
 	<form method="POST" action="/review/<%=index%>"><br/> 
 
+		Cafe (read-only): <br/><input name="place" value="<%=oneCafe.name%>" readonly />
+
+		<br/>
+		<br/>
+
+		Add your review: <br/>
 		<textarea rows="5" name="review" col="50"></textarea>
 
 		<br> 
 
-		<input type="submit" name="cafe" value="Submit Changes" />
+		<input type="submit" value="Submit Changes" />
 
 		</form>  
 
