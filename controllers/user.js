@@ -91,8 +91,11 @@ router.post('/register', async (req, res, next) => {
 				username: username,
 				password: hashedPassword
 			})
-			req.session.userId = createdUser._id;
-			req.session.logged = true; 
+
+			//user will be redirected to homepage to login -- therefore, there is no need 
+				// to set the session 
+			// req.session.userId = createdUser._id;
+			// req.session.logged = true; 
 			res.redirect('/')
 		}
 

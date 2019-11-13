@@ -31,7 +31,6 @@ router.get('/:cafeIndex/new', async (req, res) => {
 	})
 
 //review create route 
-
 router.post('/:cafeListIndex', async (req, res, next) => {
 	try{
 		const newReview = {
