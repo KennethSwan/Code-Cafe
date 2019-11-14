@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
 		const reviewsArray = []
 		for(let i = 0; i < oneCafe.review.length; i++){
 			const foundReview = await Review.findById(oneCafe.review[i])
-			reviewsArray.push(foundReview.review)
+			reviewsArray.push(foundReview)
 		}
 		// const reviewContentArray = await oneCafe.review.map(async reviewId => {
 		// 	const foundReview = await Review.findById(reviewId)
@@ -35,6 +35,7 @@ router.get('/:id', async (req, res, next) => {
 			oneCafe: oneCafe,
 			i: req.params.id,
 			foundReviews: reviewsArray
+
 		})
 
 	}
