@@ -17,12 +17,31 @@ router.get('/new', (req, res) => {
 })
 
 // show route - where you can see reviews of cafe
-router.get('/:id', (req, res) => {
-	const oneCafe = cafeList[req.params.id]
-	res.render('cafeList/show.ejs', {
-		cafeList: oneCafe,
-		i: req.params.id
-	})
+router.get('/:id', async (req, res, next) => {
+	try {
+		const oneCafe = cafeList[req.params.id]
+		const reviewsArray = []
+		for(let i = 0; i < oneCafe.review.length; i++){
+			const foundReview = await Review.findById(oneCafe.review[i])
+			reviewsArray.push(foundReview.review)
+		}
+		// const reviewContentArray = await oneCafe.review.map(async reviewId => {
+		// 	const foundReview = await Review.findById(reviewId)
+		// 	return foundReview.review
+		// })
+		// console.log("this is reviewContentArray array of reviews for the cafe")
+		// console.log(reviewContentArray)
+		res.render('cafeList/show.ejs', {
+			oneCafe: oneCafe,
+			i: req.params.id,
+			foundReviews: reviewsArray
+		})
+
+	}
+	catch (err) {
+		next(err)
+	}
+
 })
 
 // post route - create route

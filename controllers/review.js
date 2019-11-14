@@ -59,27 +59,20 @@ router.post('/:cafeListIndex', async (req, res, next) => {
 		// User.findOneAndReplace({_id: req.session.userId}, updatedUser)
 
 
+		// add review ID to the place review array
+		const reviewedCafe = cafeList[req.params.cafeListIndex]
+		reviewedCafe.review.push(createReview._id)
+
 		// find user again to update with the user object that now has the new review
 		// const updatedUser = await User.findByIdAndUpdate(req.session.userId, foundUser)
 		// await updatedUser.save()
-		res.redirect('/cafeList')
+		res.redirect('/cafeList/' + req.params.cafeListIndex)
 	}catch(err){
 		console.dir(err)
 		res.send("err")
 	}	
 
 })
-
-// // router.post('/') aync (req, res, next) => {
-// // 	try{
-// // 		Review.findByIdAndUpdate(req.params.index,
-// // 			req.body, 
-// // 			{new: true},
-// // 			(err))
-// // 	} catch {
-
-// // 	}
-// // }
 
 // // delete review route 
 

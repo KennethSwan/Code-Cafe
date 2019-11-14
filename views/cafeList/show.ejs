@@ -4,18 +4,18 @@
 	<title></title>
 </head>
 <body>
-	<h1><%=cafeList.name%></h1>
+	<h1><%=oneCafe.name%></h1>
 		<ul>
 			<li>
-				 <%=cafeList.address%>
+				 <%=oneCafe.address%>
 			</li>
-			<li>
-				<% if( cafeList.review.length !== 0) { %>
-					<% for( let i = 0; i < cafeList.review.length; i++) {%>
-						<%=cafeList.review[i].review%>
-					<%}%>
+			<% if( oneCafe.review.length !== 0) { %>
+				<% for( let i = 0; i < foundReviews.length; i++) {%>
+					<li>
+						<%=foundReviews[i]%>
+					</li>
 				<%}%>
-			</li>
+			<%}%>
 			
 		</ul>
 	
