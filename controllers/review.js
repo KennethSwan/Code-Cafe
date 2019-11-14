@@ -74,6 +74,20 @@ router.post('/:cafeListIndex', async (req, res, next) => {
 
 })
 
+// edit route 
+router.get('/:index/edit', async (req, res, next) => {
+	//findbyid
+	const foundReview = await Review.findById(req.params.index)
+	const oneCafe = cafeList[foundReview.place]
+	res.render('cafeList/edit.ejs', {
+		// use query to find review 
+		// use a loop to add and edit reviews 
+		oneCafe: oneCafe,
+		review: foundReview.review,
+		index: req.params.index 
+	})
+})
+
 // // delete review route 
 
 // router.delete('/review/:id', async (req, res) => {

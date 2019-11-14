@@ -21,6 +21,7 @@ router.get('/:id', async (req, res, next) => {
 	try {
 		const oneCafe = cafeList[req.params.id]
 		const reviewsArray = []
+		console.log(oneCafe);
 		for(let i = 0; i < oneCafe.review.length; i++){
 			const foundReview = await Review.findById(oneCafe.review[i])
 			reviewsArray.push(foundReview)
@@ -49,16 +50,6 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', (req, res) => {
 	cafeList.push(req.body);
 	res.redirect('/cafeList/')
-})
-
-// edit route 
-router.get('/:index/edit', (req, res) => {
-	res.render('cafeList/edit.ejs', {
-		// use query to find review 
-		// use a loop to add and edit reviews 
-		oneCafe: cafeList[req.params.index],
-		index: req.params.index 
-	})
 })
 
 // put route 
