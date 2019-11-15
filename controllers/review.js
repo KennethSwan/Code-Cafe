@@ -99,7 +99,7 @@ router.put('/:index', async (req, res, next) => {
 		console.log("this is what is in req.body");
 		console.log(req.body);
 		// const updatedReview = await Review.findByIdAndUpdate(req.params.index)
-		res.redirect('/cafeList/show.ejs')
+		res.redirect('/cafeList/')
 	}
 	catch (err) {
 		next(err)
