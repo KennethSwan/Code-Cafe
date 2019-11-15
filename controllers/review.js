@@ -96,10 +96,11 @@ router.get('/:index/edit', async (req, res, next) => {
 router.put('/:index', async (req, res, next) => {
 	try {
 		const reviewToUpdate = await Review.findOneAndReplace(req.params.index, req.body)
+		// finds the review by the id, replacing the one found in the db with the information from the form.
 		console.log("this is what is in req.body");
 		console.log(req.body);
 		// const updatedReview = await Review.findByIdAndUpdate(req.params.index)
-		res.redirect('/cafeList/')
+		res.render('cafeList/show.ejs')
 	}
 	catch (err) {
 		next(err)
