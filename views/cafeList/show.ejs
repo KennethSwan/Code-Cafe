@@ -18,8 +18,8 @@
 						<button type="Submit">Edit Review</button>
 					</form> 
 
-					<form method="POST" action="/review/<%=i%>?_method=DELETE">
-						<button type="Submit">Delete Review</button>
+					<form action="/review/<%=foundReviews[i]._id%>?_method=DELETE"  method="POST">
+						<button value="DELETE">Delete Review</button>
 					</form>
 				<%}%>
 			<%}%>

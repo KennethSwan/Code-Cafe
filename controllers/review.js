@@ -99,10 +99,8 @@ router.put('/:index', async (req, res, next) => {
 		const reviewToUpdate = await Review.findByIdAndUpdate(req.params.index, req.body, {new: true});
 		await reviewToUpdate.save();
 		console.log(reviewToUpdate);
-		// finds the review by the id, replacing the one found in the db with the information from the form.
-		// console.log("this is what is in req.body");
-		// console.log(req.body);
-		// const updatedReview = await Review.findByIdAndUpdate(req.params.index)
+		// finds the review by the id, replacing 
+		// the one found in the db with the information from the form.
 		res.redirect('/cafeList/');
 	}
 	catch (err) {
@@ -110,20 +108,26 @@ router.put('/:index', async (req, res, next) => {
 	}
 })
 
-// // delete review route 
+// delete review route 
 
-// router.delete('/review/:id', async (req, res) => {
-// 	console.log('delete');
-// 	try{
-// 		const deleteReview = Review.findByIdAndRemove(req.params.id)
-// 		const findUser = Review.findOne({'reviews': req.params.id})
-// 		const [deletedReviewResponse, foundUser] = await Promise.all([deleteReview, findReview])
-// 		console.log(foundUser, ' found user');
-// 		foundUser.reviews.remove(req.params.id)
-// 		await foundReview.save()
-// 		res.redirect('/cafeList/show.ejs')
-// 	} catch(err){
-// 		res.send(err)
+router.delete('/review/:id', async (req, res, next) => {
+	try {
+		const deletedReview = await Review.remove(req.params.index)
+		console.log(deletedReview);
+		res.redirect('/cafeList/');
+	}
+	catch (err) {
+		next(err)
+	}
+})
+
+// router.get('/review/:id', async (req, res, next) => {
+// 	try {
+// 		const allReviews = await Review.find()
+// 		res.render('/cafeList/')
+// 	}
+// 	catch (err) {
+// 		next(err)
 // 	}
 // })
 
