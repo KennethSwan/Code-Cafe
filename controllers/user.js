@@ -24,12 +24,9 @@ router.post('/login', async (req, res, next) => {
 	try {
 	 	// see if username exists in db
 	 	const foundUsers = await User.find({
-	 	// set a property on the session called username and set 
-	 	// it equal to the username sent from the form 
 	 		username: req.body.username
 	 	})
-	 	// foundUsers should be [] if user not there, [foundUsers] if one user is there
-
+	 	
 		// if username does not exist
 		if(foundUsers.length === 0) {
 			// redirect to /login
@@ -92,10 +89,6 @@ router.post('/register', async (req, res, next) => {
 				password: hashedPassword
 			})
 
-			//user will be redirected to homepage to login -- therefore, there is no need 
-				// to set the session 
-			// req.session.userId = createdUser._id;
-			// req.session.logged = true; 
 			res.redirect('/')
 		}
 
