@@ -10,6 +10,8 @@ const session = require('express-session')
 
 require('./db/db');
 
+app.use('/css', express.static('css'));
+
 app.use(session({
     secret: process.env.SESSION_SECRET, 
     resave: false,
