@@ -28,8 +28,6 @@ const placeSchema = new mongoose.Schema({
 		ref: 'User'
 	},
 	additionalInfo: String
-	// name -- from google
-	// address -- from google 
 }); 
 
 

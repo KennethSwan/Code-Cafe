@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-</head>
+	<head>
+		<title>Add review</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+	</head>
 <body>
+
+	<br/>
+	<br/>
 
 	<h1> Add Review For <%=oneCafe.name%></h1>
 
-	<form method="POST" action="/review/<%=index%>"><br/> 
-
-		Cafe (read-only): <br/><input name="place" value="<%=oneCafe.name%>" readonly />
+	<form method="POST" action="/review/<%=index%>"> <br/> 
 
 		<br/>
 		<br/>
 
-		Add your review: <br/>
+		Add your review:
+		<br/>
+		<br/>
 		<textarea rows="5" name="review" col="50"></textarea>
 
-		<br> 
+		<br/>
+		<br/>
 
 		<input type="submit" value="Submit Changes" />
 

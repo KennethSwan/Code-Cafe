@@ -26,12 +26,7 @@ router.get('/:id', async (req, res, next) => {
 			const foundReview = await Review.findById(oneCafe.review[i])
 			reviewsArray.push(foundReview)
 		}
-		// const reviewContentArray = await oneCafe.review.map(async reviewId => {
-		// 	const foundReview = await Review.findById(reviewId)
-		// 	return foundReview.review
-		// })
-		// console.log("this is reviewContentArray array of reviews for the cafe")
-		// console.log(reviewContentArray)
+
 		res.render('cafeList/show.ejs', {
 			oneCafe: oneCafe,
 			i: req.params.id,

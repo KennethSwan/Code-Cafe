@@ -1,0 +1,58 @@
+body {
+	background-color: #F0F8FF;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.home-page {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1 {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h2 {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h3 {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+textarea {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+form {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+nav {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ul {
+	text-align: center;
+	list-style-position: inside;
+}
+
+
+a {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
