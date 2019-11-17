@@ -110,10 +110,9 @@ router.put('/:index', async (req, res, next) => {
 
 // delete review route 
 
-router.delete('/:index', async (req, res, next) => {
+router.delete('/review/:id', async (req, res, next) => {
 	try {
-		const deletedReview = await Review.findByIdAndDelete(req.params.index)
-		console.log(deletedReview);
+		const deletedReview = await Review.findByIdAndRemove(req.params.id)
 		res.redirect('/cafeList/');
 	}
 	catch (err) {
@@ -121,5 +120,14 @@ router.delete('/:index', async (req, res, next) => {
 	}
 })
 
+// router.get('/review/:id', async (req, res, next) => {
+// 	try {
+// 		const allReviews = await Review.find()
+// 		res.render('/cafeList/')
+// 	}
+// 	catch (err) {
+// 		next(err)
+// 	}
+// })
 
 module.exports = router;
