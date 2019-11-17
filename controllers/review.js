@@ -6,13 +6,10 @@ const cafeList = require("../models/cafeList.js")
 const User = require("../models/user.js")
 
 
-// new route
 router.get('/:cafeIndex/new', async (req, res) => {
 	try {
 		const oneCafe = cafeList[req.params.cafeIndex]
-		
 		res.render('review/new.ejs', {
-			
 			oneCafe: oneCafe,
 			index: req.params.cafeIndex 
 		})
@@ -31,29 +28,17 @@ router.post('/:cafeListIndex', async (req, res, next) => {
 
 		const createReview = await Review.create(newReview);
 
-		console.log(createReview)
-
-		// find the user
 		const foundUser = await User.findById(req.session.userId);
-		// change the user reviews array to include new review
 		const reviewArray = foundUser.review
 		reviewArray.push(createReview._id)
-
-		console.log(reviewArray)
 
 		const updatedUser = {
 			username: foundUser.username,
 			password: foundUser.password,
 			review: reviewArray
 		}
-
-		// User.findOneAndReplace({_id: req.session.userId}, updatedUser)
-
-
-		// add review ID to the place review array
 		const reviewedCafe = cafeList[req.params.cafeListIndex]
 		reviewedCafe.review.push(createReview._id)
-
 		res.redirect('/cafeList/' + req.params.cafeListIndex)
 	}catch(err){
 		console.dir(err)
@@ -64,7 +49,6 @@ router.post('/:cafeListIndex', async (req, res, next) => {
 
 // edit route 
 router.get('/:index/edit', async (req, res, next) => {
-	//findbyid
 	try {
 		const foundReview = await Review.findById(req.params.index)
 		const oneCafe = cafeList[foundReview.place]
@@ -84,7 +68,7 @@ router.put('/:index', async (req, res, next) => {
 	try {
 		const reviewToUpdate = await Review.findByIdAndUpdate(req.params.index, req.body, {new: true});
 		await reviewToUpdate.save();
-	
+		console.log(reviewToUpdate);
 		res.redirect('/cafeList/');
 	}
 	catch (err) {
@@ -94,7 +78,7 @@ router.put('/:index', async (req, res, next) => {
 
 // delete review route 
 
-router.delete('/review/:id', async (req, res, next) => {
+router.delete('/:index', async (req, res, next) => {
 	try {
 		const deletedReview = await Review.findByIdAndDelete(req.params.index)
 		res.redirect('/cafeList/');
@@ -104,14 +88,5 @@ router.delete('/review/:id', async (req, res, next) => {
 	}
 })
 
-// router.get('/review/:id', async (req, res, next) => {
-// 	try {
-// 		const allReviews = await Review.find()
-// 		res.render('/cafeList/')
-// 	}
-// 	catch (err) {
-// 		next(err)
-// 	}
-// })
 
 module.exports = router;
